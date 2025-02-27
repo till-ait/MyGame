@@ -60,6 +60,4 @@ si de rapport different on met des bande sur le cotC) et on recentre
     // TODO : peut etre passer sur du JSON pour la save au lieu des txt
     
     peut etre faire une verion loaded et une version unloaded pour les batiment, comme ca le joueur sais si c'est dispo ou pas.
-
-jfjjf
 */
