@@ -1,0 +1,7 @@
+principale, setting, pause, town, ressources
+testEvent, testEvent2
+regular
+regular
+regular
+town
+ressources, 3, 1, 0, 0, 0
