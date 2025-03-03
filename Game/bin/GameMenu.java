@@ -41,7 +41,7 @@ public class GameMenu {
 	public static final int FILE_POSITION_BUTTON_MARGE_X = 8;
 	public static final int FILE_POSITION_BUTTON_MARGE_Y = 9;
 	
-	public static final int FILE_POSITION_BUTTON_IS_TOGGLE = 0;
+	public static final int FILE_POSITION_BUTTON_TYPE = 0;		// TODO : peut etre mettre le text ici en postion 2, pas sur vu qu'on doit le mettre en francais ou en anglais, peut etre mieux de tout mettre dans un fichier avec le premier truc qui est le nom du bp, ensuite le text en francais puis le text en anglais
 	public static final int FILE_POSITION_BUTTON_LENGTH_X = 1;
 	public static final int FILE_POSITION_BUTTON_LENGTH_Y = 2;
 	
@@ -96,17 +96,17 @@ public class GameMenu {
 		for(i=0; i<GetNbButton(); i++) {
 		    dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA+i+1);
 		    
-		    if(datas.get(FILE_POSITION_BUTTON_IS_TOGGLE).equals("regular")) {
+		    if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("regular")) {
 		        CreatRegularButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
 		                           Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                           i);
 		    }
-		    else if(datas.get(FILE_POSITION_BUTTON_IS_TOGGLE).equals("toggle")) {
+		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("toggle")) {
 		        CreatToggleButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i);
 		    }
-		    else if(datas.get(FILE_POSITION_BUTTON_IS_TOGGLE).equals("choice")) {
+		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("choice")) {
 		        CreatChoiceButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i,
@@ -292,6 +292,11 @@ public class GameMenu {
 	public short GetButtonMargeY() {
 		return buttonMargeY;
 	}
+
+	public short GetIndexLevel() {
+	    // necessaire pour le polymorphisme
+		return 0;
+    }
 
 	public void SetIsActive(boolean _isActive) {
 		isActive = _isActive;

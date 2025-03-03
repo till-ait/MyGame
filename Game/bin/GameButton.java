@@ -77,7 +77,7 @@ public class GameButton {
 
 	public void InitFromFile() {
 		ArrayList<String> datas = new ArrayList<>();
-		FileReading dataFile = new FileReading("dataButton.txt");  // TODO : remplacer par name + ".txt"
+		FileReading dataFile = new FileReading(name+"Data.txt");  // TODO : remplacer par name + ".txt"
 		dataFile.ReadDataFromFile(datas, FILE_FIRST_LINE);
 
 		SetLengthX(Short.parseShort(datas.get(FILE_POSITION_X)));

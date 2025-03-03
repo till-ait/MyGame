@@ -65,17 +65,17 @@ public class GameMenuBuilding extends GameMenu {
 		for(i=0; i<GetNbButton(); i++) {
 		    dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA+i+1);
 		    
-		    if(datas.get(FILE_POSITION_BUTTON_IS_TOGGLE).equals("regular")) {
+		    if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("regular")) {
 		        CreatRegularButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
 		                           Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                           i);
 		    }
-		    else if(datas.get(FILE_POSITION_BUTTON_IS_TOGGLE).equals("toggle")) {
+		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("toggle")) {
 		        CreatToggleButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i);
 		    }
-		    else if(datas.get(FILE_POSITION_BUTTON_IS_TOGGLE).equals("choice")) {
+		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("choice")) {
 		        CreatChoiceButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i,
@@ -127,7 +127,7 @@ public class GameMenuBuilding extends GameMenu {
         return isLoaded;
     }
     
-    public short GetInfiltrationLevel(){
+    public short GetIndexLevel(){
         return infiltrationLevel;
     }
     
@@ -160,20 +160,23 @@ public class GameMenuBuilding extends GameMenu {
         isLoaded = _isLoaded;
     }
     
-    @Override
+	@Override
     public void SetIndexLevel(short _indexLevel){
         int i=0;
-        infiltrationLevel = _indexLevel;
-        
-        for(Short requireLevel : infiltationLevelRequireArray){
-            if(requireLevel <= infiltrationLevel) {
-                buttonArray.get(i).SetIsActive(true);
-            } 
-            else {
-                buttonArray.get(i).SetIsActive(false);
-            } 
-            i++;
-        }
+
+		if(_indexLevel > 0) {
+			infiltrationLevel = _indexLevel;
+			
+			for(Short requireLevel : infiltationLevelRequireArray){
+				if(requireLevel <= infiltrationLevel) {
+					buttonArray.get(i).SetIsActive(true);
+				} 
+				else {
+					buttonArray.get(i).SetIsActive(false);
+				} 
+				i++;
+			}
+		}
     }
     
     public void SetIsDoorBlocked(boolean _isDoorBlocked){

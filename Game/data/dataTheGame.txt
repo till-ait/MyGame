@@ -1,7 +1,8 @@
-principale, setting, pause, town, ressources
+principale, setting, pause, town, godsChoice, ressources
 testEvent, testEvent2
 regular
 regular
 regular
 town
+godsChoice
 ressources, 3, 1, 0, 0, 0

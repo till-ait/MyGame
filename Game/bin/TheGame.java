@@ -9,6 +9,7 @@ public class TheGame {
 	protected ArrayList<GameMenu> menuArray;
 	protected ArrayList<GameMenu> buildingArray;    // TODO : il faut que quand on fasse nouvelle partie ou jouer l'array soit remplie des batiments pour cette game
 	protected ArrayList<GameMenu> eventArray;	// TODO : il faut remplire l'array aleatoirement d'event, une fois que l'array est entrement parcouru on la remelange et on l'a refait
+	protected GameMenuGodChoice.GodsNames worshipedGod;
 	protected long lastTimeUpdate;
 	protected GameInput lastGameInput;
 
@@ -82,6 +83,10 @@ public class TheGame {
 			                                         Integer.parseInt(datas.get(3)),
 			                                         Integer.parseInt(datas.get(4)),
 			                                         Integer.parseInt(datas.get(5))));
+			}
+
+			if(datas.get(FILE_POSITION_MENU_TYPE).equals("godsChoice")) {
+				menuArray.add(new GameMenuGodChoice(menuName, this));
 			}
 			i++;
 		}

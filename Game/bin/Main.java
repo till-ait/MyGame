@@ -37,12 +37,7 @@ si de rapport different on met des bande sur le cotC) et on recentre
 
     // TODO : ajouter la temporaliter pour permettre le rechargement des batiments ainsi que les envenements
 
-
-
-
-
     TOODOOOOOOOOOOOO : faire le rechargement du batiments apres utilisation
-    TODO : commencer a voir comment on va faire les envenements
     Je crois qu'il va falloir que je commence la partie graphique bientot
     il ne reste plus grand chose a faire coter logique une fois que les evenement seront fait
     il faudra quand meme que je prevoit l'affichage des icones pour les choice button
@@ -66,4 +61,7 @@ si de rapport different on met des bande sur le cotC) et on recentre
     deux choix a chaque fois, de toute facon on a qu'a faire un niveau d'avancement et les bouton de ce niveau seront afficher
 
     il faut faire les ivent aussi
+
+
+    Au lancement du jeu mettre le traileur.
 */
