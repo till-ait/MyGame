@@ -1,6 +1,0 @@
-principale, setting, pause, town, ressources
-regular
-regular
-regular
-town
-ressources, 3, 1, 0, 0, 0
