@@ -88,6 +88,11 @@ public class TheGame {
 			if(datas.get(FILE_POSITION_MENU_TYPE).equals("godsChoice")) {
 				menuArray.add(new GameMenuGodChoice(menuName, this));
 			}
+
+			if(datas.get(FILE_POSITION_MENU_TYPE).equals("godsQuest")) {
+				menuArray.add(new GameMenuGodQuest(menuName, this));
+			}
+			
 			i++;
 		}
 	}
@@ -112,13 +117,19 @@ public class TheGame {
             SimulateInput(i, 6, 101, 121, 0, 0);
             SimulateInput(i, 10, 101, 121, 0, 0);
             SimulateInput(i, 14, 101, 551, 0, 0);
-            SimulateInput(i, 18, 101, 451, 0, 0);
-            SimulateInput(i, 24, 101, 21, 0, 0);
-            if(i==29){
-                lastGameInput.tempNewInput(InputType.SLIDE, (short)10, (short)100, (short)20, (short)150);
-            }
-            SimulateInput(i, 32, 101, 351, 0, 0);
-            SimulateInput(i, 36, 101, 551, 0, 0);
+            // SimulateInput(i, 18, 101, 451, 0, 0);
+            SimulateInput(i, 18, 101, 21, 0, 0);
+            SimulateInput(i, 22, 101, 21, 0, 0);
+            SimulateInput(i, 26, 101, 201, 0, 0);
+            SimulateInput(i, 30, 101, 251, 0, 0);
+            SimulateInput(i, 34, 101, 201, 0, 0);
+            SimulateInput(i, 38, 101, 251, 0, 0);
+            // SimulateInput(i, 26, 101, 301, 0, 0);
+            // if(i==29){
+            //     lastGameInput.tempNewInput(InputType.SLIDE, (short)10, (short)100, (short)20, (short)150);
+            // }
+            // SimulateInput(i, 32, 101, 351, 0, 0);
+            // SimulateInput(i, 36, 101, 551, 0, 0);
             // SimulateInput(i, 26, 101, 21, 0, 0);
 
 			try {
@@ -247,6 +258,10 @@ public class TheGame {
 		return null;
 	}
 
+	public GameMenuGodChoice.GodsNames GetWorshipedGod() {
+		return worshipedGod;
+	}
+
 	public void SetMenuIsActive(String _name, boolean _isActive) {
 		for(GameMenu menu : menuArray) {
 			if(menu.GetName().equals(_name)) {
@@ -287,5 +302,9 @@ public class TheGame {
 	
 	public void SetSoundOn(boolean _soundOn) {
 	    soundOn = _soundOn;
+	}
+
+	public void SetWorshipedGod(GameMenuGodChoice.GodsNames _worshipedGod) {
+		worshipedGod = _worshipedGod;
 	}
 }

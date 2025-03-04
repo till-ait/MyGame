@@ -64,4 +64,19 @@ si de rapport different on met des bande sur le cotC) et on recentre
 
 
     Au lancement du jeu mettre le traileur.
+
+
+
+
+
+
+    chose a faire ajd : 
+    - finir les fonction de methode bp / ajouter le menu victoire : main menu ou new run / ajouter le menu you lose / V
+    - definir les gain et loss de chaque action et de chaque bat et evenement
+    - cree les fichier des chaque batiments et chaque evenement
+    - il faut finir la class goodsQuest V
+    - faire le evenement
+    - il serait cool de faire un truc qui permet de joue au jeu sur le terminal
+
+    peut etre faire en sorte de pouvoir afficher des notification en au de l'ecran
 */

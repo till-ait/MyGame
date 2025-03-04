@@ -77,21 +77,21 @@ public class GameMenu {
 	public void InitFromeFile() {
 
 		int i=0;
+		ArrayList<String> datasFirstLine = new ArrayList<>();
 		ArrayList<String> datas = new ArrayList<>();
 		FileReading dataFile = new FileReading(name + ".txt");
 		
-		dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA);
+		dataFile.ReadDataFromFile(datasFirstLine, FILE_LINE_MENU_DATA);
 
-		SetPositionX(Short.parseShort(datas.get(FILE_POSITION_POSITION_X)));    // TODO : creer une fonction pour racourcir la ligne, pour plus de clareter
-		SetPositionY(Short.parseShort(datas.get(FILE_POSITION_POSITION_Y)));
-		SetLengthX(Short.parseShort(datas.get(FILE_POSITION_LENGTH_X)));
-		SetLengthY(Short.parseShort(datas.get(FILE_POSITION_LENGTH_Y)));
-		SetMargeX(Short.parseShort(datas.get(FILE_POSITION_MARGE_X)));
-		SetMargeY(Short.parseShort(datas.get(FILE_POSITION_MARGE_Y)));
-		SetNbButton(Short.parseShort(datas.get(FILE_POSITION_NBBUTTON)));
-		SetIsActive(Boolean.parseBoolean(datas.get(FILE_POSITION_DEFAULT_ACTIV)));
-		SetButtonMargeX(Short.parseShort(datas.get(FILE_POSITION_BUTTON_MARGE_X)));
-		SetButtonMargeY(Short.parseShort(datas.get(FILE_POSITION_BUTTON_MARGE_Y)));
+		SetPositionX(Short.parseShort(datasFirstLine.get(FILE_POSITION_POSITION_X)));    // TODO : creer une fonction pour racourcir la ligne, pour plus de clareter
+		SetPositionY(Short.parseShort(datasFirstLine.get(FILE_POSITION_POSITION_Y)));
+		SetLengthX(Short.parseShort(datasFirstLine.get(FILE_POSITION_LENGTH_X)));
+		SetLengthY(Short.parseShort(datasFirstLine.get(FILE_POSITION_LENGTH_Y)));
+		SetMargeX(Short.parseShort(datasFirstLine.get(FILE_POSITION_MARGE_X)));
+		SetMargeY(Short.parseShort(datasFirstLine.get(FILE_POSITION_MARGE_Y)));
+		SetNbButton(Short.parseShort(datasFirstLine.get(FILE_POSITION_NBBUTTON)));
+		SetButtonMargeX(Short.parseShort(datasFirstLine.get(FILE_POSITION_BUTTON_MARGE_X)));
+		SetButtonMargeY(Short.parseShort(datasFirstLine.get(FILE_POSITION_BUTTON_MARGE_Y)));
 
 		for(i=0; i<GetNbButton(); i++) {
 		    dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA+i+1);
@@ -124,7 +124,8 @@ public class GameMenu {
 		    }
 		}
         
-        SetIsActive(GetIsActive());
+        // SetIsActive(GetIsActive());
+		SetIsActive(Boolean.parseBoolean(datasFirstLine.get(FILE_POSITION_DEFAULT_ACTIV)));
 		
 		// TODO : SetBackgroudFromFile(_name);
 		// TODO : SetSoundFromFile(_name);

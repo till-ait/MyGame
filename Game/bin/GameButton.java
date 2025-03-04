@@ -103,7 +103,7 @@ public class GameButton {
 	// UPDATE //////////////////////////////////////////////////////////////////
 
 	public void InputUpdate(GameInput _lastGameInput) { // TODO : peut etre faire une fonction similaire qui prend en parametre la position x et y, pour avoir des menus dynamique. (surtout pour les batiments).
-    	if(_lastGameInput.GetIsNewInput()) {
+    	if((_lastGameInput.GetIsNewInput()) && (isActive)) {
     		switch(_lastGameInput.GetInputType()) {
     		case InputType.PRESS:
     			ManagePressInput(_lastGameInput);

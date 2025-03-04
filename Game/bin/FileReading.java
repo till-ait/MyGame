@@ -11,7 +11,7 @@ public class FileReading {
 	}
 
 	public void ReadDataFromFile(ArrayList<String> dataList, int _iLine) {
-	    int i =0;
+	    int i = 0;
 	    dataList.clear();
 	    String line = null;
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -26,6 +26,29 @@ public class FileReading {
 					dataList.add(data);
 				}
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void ReadDataFromFile(ArrayList<String> dataList) {
+		int i = 0;
+		dataList.clear();
+		String text="", line;
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+			while ((line = br.readLine()) != null) {
+				// dataList.add(line);
+				text = text + line;
+			}
+
+			if(text != null) {
+				String[] splitData = text.split("#");
+				for(String data : splitData) {
+					dataList.add(data);
+				}
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

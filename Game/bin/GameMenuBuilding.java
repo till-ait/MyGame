@@ -44,7 +44,7 @@ public class GameMenuBuilding extends GameMenu {
 	// OVERRIDE ////////////////////////////////////////////////////////////////
     
     @Override
-    public void InitFromeFile() {
+    public void InitFromeFile() {	// TODO : maintenant que l'init se passe que a la fin dans GameMenu peut etre plus besoin de se faire chier a tous reecrire
 		int i=0;
 		ArrayList<String> datas = new ArrayList<>();
 		FileReading dataFile = new FileReading(name + ".txt");

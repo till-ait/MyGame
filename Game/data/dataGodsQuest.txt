@@ -1,0 +1,10 @@
+Ifrak#
+lengthX,100,lengthY,100,goldCost,1,suspicionReward,1
+::
+lengthX,100,lengthY,100,cultistCost,1,suspicionReward,2
+#
+Yikouch#
+lengthX,100,lengthY,100,cultistCost,1,suspicionReward,1
+::
+lengthX,100,lengthY,100,knowCost,1,sispicionReward,2
+#
