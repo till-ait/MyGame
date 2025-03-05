@@ -9,6 +9,7 @@ public class GameMenuRessources extends GameMenu {
     protected int knowlege;
     protected int suspicion;
     protected int relic;
+    protected boolean aRitualPlace;
     
     // TODO : ajouter toutes les icones pour les ressources
     
@@ -27,6 +28,7 @@ public class GameMenuRessources extends GameMenu {
         knowlege = _knowlege;
         suspicion = _suspicion;
         relic = _relic;
+        aRitualPlace = false;
     }
     
     
@@ -36,7 +38,7 @@ public class GameMenuRessources extends GameMenu {
     public void OutputUpdate(){
         super.OutputUpdate();
         if(isActive){
-            System.out.println("RESSOURCES : gold : "+ gold+" / culti : "+cultist+" / know : "+knowlege+" / sus : "+suspicion+" / relic : "+relic);
+            System.out.println("RESSOURCES : gold : "+ gold+" / culti : "+cultist+" / know : "+knowlege+" / sus : "+suspicion+" / relic : "+relic+" / a place : "+aRitualPlace);
         }
     }
     
@@ -60,6 +62,10 @@ public class GameMenuRessources extends GameMenu {
     
     public int GetRelic(){
         return relic;
+    }
+
+    public boolean GetARitualPlace() {
+        return aRitualPlace;
     }
     
     public void SetGold(int _gold){
@@ -105,5 +111,9 @@ public class GameMenuRessources extends GameMenu {
         else {
             relic = 0;
         }
+    }
+
+    public void SetARitualPlace(boolean _aRitualPlace) {
+        aRitualPlace = _aRitualPlace;
     }
 }

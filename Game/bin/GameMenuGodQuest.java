@@ -74,6 +74,7 @@ public class GameMenuGodQuest extends GameMenu {
         int i=0;
         short lengthX=0, lengthY=0, goldCost=0, cultistCost=0, knowlegeCost=0, suspicionCost=0, relicCost=0,
         goldReward=0, cultistReward=0, knowlegeReward=0, suspicionReward=0, relicReward=0;
+        boolean ritualPlaceCost = false, ritualPlaceReward=false;
 
         while (i < splitData.length) {
             switch(splitData[i]){
@@ -113,6 +114,12 @@ public class GameMenuGodQuest extends GameMenu {
             case "relicReward":
                 relicReward = Short.parseShort(splitData[i+1]);
                 break;
+            case "ritualPlaceCost":
+                ritualPlaceCost = Boolean.parseBoolean(splitData[i+1]);
+                break;
+            case "ritualPlaceReward":
+                ritualPlaceReward = Boolean.parseBoolean(splitData[i+1]);
+                break;
             default:
                 break;
             }
@@ -120,8 +127,8 @@ public class GameMenuGodQuest extends GameMenu {
         }
 
         nbButton++;
-        CreatChoiceButton(lengthX, lengthY, _i, goldCost,cultistCost,knowlegeCost,suspicionCost,relicCost,
-                        goldReward,cultistReward,knowlegeReward,suspicionReward,relicReward,0);
+        CreatChoiceButton(lengthX, lengthY, _i, goldCost,cultistCost,knowlegeCost,suspicionCost,relicCost,ritualPlaceCost,
+                        goldReward,cultistReward,knowlegeReward,suspicionReward,relicReward,ritualPlaceReward,0);
     }
 
     // OVERRIDE ///////////////////////////////////////////////

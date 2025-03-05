@@ -12,12 +12,14 @@ public class GameButtonChoice extends GameButton {
     protected int knowlegeCost;
     protected int suspicionCost;
     protected int relicCost;
+    protected boolean ritualPlaceCost;
     
     protected int goldReward;
     protected int cultistReward;
     protected int knowlegeReward;
     protected int suspicionReward;
     protected int relicReward;
+    protected boolean ritualPlaceReward;
     
     protected int initialGoldCost;
     protected int initialCultistCost;
@@ -38,9 +40,9 @@ public class GameButtonChoice extends GameButton {
     public GameButtonChoice(String _name, TheGame _game, GameMenu _menu,
 	                  short _lengthX, short _lengthY, int _positionInArray,
 	                  int _goldCost, int _cultistCost, int _knowlegeCost,
-	                  int _suspicionCost, int _relicCost, int _goldreward, 
+	                  int _suspicionCost, int _relicCost, boolean _ritualPlaceCost, int _goldreward, 
 	                  int _cultistReward, int _knowlegeReward, int _suspicionReward,
-	                  int _relicReward, int timeToReload) {
+	                  int _relicReward, boolean _ritualPlaceReward, int timeToReload) {
         super(_name, _game, _menu, _lengthX, _lengthY, _positionInArray);
         
         goldCost = _goldCost;
@@ -208,6 +210,14 @@ public class GameButtonChoice extends GameButton {
     
     public int GetRelicReward() {
         return relicReward;
+    }
+
+    public boolean GetRitualPlaceCost() {
+        return ritualPlaceCost;
+    }
+
+    public boolean GetRitualPlaceReward() {
+        return ritualPlaceReward;
     }
     
     public int GetTimeToReload() {

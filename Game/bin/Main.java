@@ -79,4 +79,8 @@ si de rapport different on met des bande sur le cotC) et on recentre
     - il serait cool de faire un truc qui permet de joue au jeu sur le terminal
 
     peut etre faire en sorte de pouvoir afficher des notification en au de l'ecran
+
+    TODO : il faut ajouter une variable rituel organiser, et ajouter dans les ressources necessaire des bt choice le rituel, il sera necessaire pour realiser la dernier quetes
+    TODO : ajouter un menu pour le chateau dans lequel on peut ajouter des specificiter, le chateau je pense je l'ajouterais plus tard une fois apres les testes,
+    peut etre faire en sorte que le chateau puissent modifier les evenement aleatoire, genre on investie dans les egout du coup plus de maladie
 */

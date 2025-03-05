@@ -57,7 +57,9 @@ public class GameMenu {
 	public static final int FILE_POSITION_BUTTON_CHOICE_RES_7 = 11;
 	public static final int FILE_POSITION_BUTTON_CHOICE_RES_8 = 12;
 	public static final int FILE_POSITION_BUTTON_CHOICE_RES_9 = 13;
-	public static final int FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD = 14;   // ms
+	public static final int FILE_POSITION_BUTTON_CHOICE_RES_10 = 14;
+	public static final int FILE_POSITION_BUTTON_CHOICE_RES_11 = 15;
+	public static final int FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD = 16;   // ms
 
 
 	// CONSTRUCTEUR ///////////////////////////////////////////////////////////
@@ -115,11 +117,13 @@ public class GameMenu {
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_2)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_3)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_4)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_5)),
+		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_5)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_6)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_7)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_8)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_9)),
+		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_10)),
+		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_11)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD)));
 		    }
 		}
@@ -153,14 +157,14 @@ public class GameMenu {
 	
 	protected void CreatChoiceButton(short _lengthX, short _lengthY, int i,
 	                  int _goldCost, int _cultistCost, int _knowlegeCost,
-	                  int _suspicionCost, int _relicCost, int _goldreward, 
+	                  int _suspicionCost, int _relicCost, boolean _ritualPlaceCost, int _goldreward, 
 	                  int _cultistReward, int _knowlegeReward, int _suspicionReward,
-	                  int _relicReward, int _timeToReload) {
+	                  int _relicReward, boolean _ritualPlaceReward, int _timeToReload) {
 	    buttonArray.add(new GameButtonChoice(name+"Bt"+i, game, this,
 	                   _lengthX, _lengthY, i, _goldCost, _cultistCost, _knowlegeCost,
-	                  _suspicionCost, _relicCost, _goldreward, 
+	                  _suspicionCost, _relicCost, _ritualPlaceCost, _goldreward, 
 	                  _cultistReward, _knowlegeReward, _suspicionReward,
-	                  _relicReward, _timeToReload));
+	                  _relicReward, _ritualPlaceReward, _timeToReload));
 	}
 
 	// UPDATE //////////////////////////////////////////////////////////////////

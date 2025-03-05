@@ -5,6 +5,7 @@ public class GameMenuBuilding extends GameMenu {
 	// CLASS VARIABLES /////////////////////////////////////////////////////////
 
 	protected boolean isLoaded;
+	protected BuildingState buildingState;
 	protected short infiltrationLevel;
 	protected boolean isDoorBlocked;    // TODO : a la creation parcourir les bat et voir si la porte y es et est ce qu'elle est blocante, ou alors mieu a chaque fois que c'est mis a actif
 	protected long lastTimeUsed;    // heure a la darniere utilisation, comparaison si la nouvelle heure est plus grande en plus time reload
@@ -18,6 +19,12 @@ public class GameMenuBuilding extends GameMenu {
 	public static final short INITIAL_INFILTRATION_LEVEL = 0;
 	public static final boolean INITIAL_IS_LOADED_VALUE = true;
 
+	// ENUM ////////////////////////////////////////////////////////////////////
+
+	public static enum BuildingState {	// Represente les etats particulier dans le quel un batiment pourrait etre
+        None, DoorOpenend, DoorClosed, InquisitionActivate, Allie, Enemies
+    }
+
 	// CONSTRUCTOR /////////////////////////////////////////////////////////////
 
 	public GameMenuBuilding(String _name, TheGame _game) { // TODO : faire la composition aleatoir de la ville
@@ -28,6 +35,7 @@ public class GameMenuBuilding extends GameMenu {
 		buttonArray = new ArrayList<>();
 		
 		isLoaded = INITIAL_IS_LOADED_VALUE;
+		buildingState = BuildingState.None;
         infiltrationLevel = INITIAL_INFILTRATION_LEVEL;
         infiltationLevelRequireArray = new ArrayList<>();
 		timeToReload = 0;
@@ -84,11 +92,13 @@ public class GameMenuBuilding extends GameMenu {
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_2)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_3)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_4)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_5)),
+		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_5)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_6)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_7)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_8)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_9)),
+		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_10)),
+		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_11)),
 		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD)));
 		    }
 		  

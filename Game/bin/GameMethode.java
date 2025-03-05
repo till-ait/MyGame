@@ -104,20 +104,61 @@ public class GameMethode {
 		    break;
 		case "pauseBt0":		// go back town, il y a aussi tout les autres bouton qui permettent de revenir a la ville
 		case "housesBt0":
+		case "factoryBt0":
+		case "marketBt0":
+		case "theatreBt0":
+		case "templeBt0":
+		case "libraryBt0":
+		case "constructionSiteBt0":
+		case "catacombsBt0":
 		case "godsQuestBt0":
 		    GoBackTown(_game);
 		    break;
-		case "housesBt1":		// tripo choice 1, il y a aussi tous les autre choix de bouton qui implique juste un echange de ressources
-		case "housesBt2":		// tripo choice 2
-		case "housesBt4":		// tripo choice 3
+		case "housesBt1":		// houses choice 1, il y a aussi tous les autre choix de bouton qui implique juste un echange de ressources
+		case "housesBt2":		// houses choice 2
+		case "housesBt4":		// houses choice 3
+		case "factoryBt1":
+		case "factoryBt3":
+		case "factoryBt4":
+		case "marketBt1":
+		case "marketBt2":
+		case "marketBt4":
+		case "marketBt5":
+		case "theatreBt1":
+		case "theatreBt2":
+		case "theatreBt4":
+		case "theatreBt5":
+		case "templeBt1":
+		case "templeBt2":
+		case "templeBt4":
+		case "libraryBt1":
+		case "libraryBt3":
+		case "libraryBt4":
+		case "constructionSiteBt1":
+		case "catacombsBt1":
+		case "catacombsBt3":
+		case "catacombsBt4":
 		    BtChoice(_game, _menu, _button);
 		    break;
 		case "housesBt3":		// inflitration, il y a aussi tous les autres choix de bouton qui permette d'augmenter l'index du menu
+		case "factoryBt2"
+		case "marketBt3":
+		case "theatreBt3":
+		case "templeBt3":
+		case "libraryBt2":
+		case "constructionSiteBt2":
+		case "constructionSiteBt3":
+		case "catacombsBt2":
 		case "godsQuestBt1":	// all gods quest bt are called Bt1 exepte the 0.
 			BtIncresIndex(_game, _menu, _button);
 			break;
 		case "housesBt5":		// sacrify infiltrated, il y a aussi tous les autres choix de bouton qui permettent de diminuer l'index du menu
-			BtDecreseIndex(_game, _menu, _button);
+		case "factoryBt5":
+		case "marketBt6":
+		case "theatreBt6":
+		case "templeBt5":
+		case "libraryBt5":
+			BtIndexe0(_game, _menu, _button);
 			break;
 		default:
 			System.out.println("Undefine bp");
@@ -257,6 +298,25 @@ public class GameMethode {
 	    }
 	}
 	
+	public static void BtIndexe0(TheGame _game, GameMenu _menu, GameButton _button) {
+		if((_button instanceof GameButtonChoice)){
+	        GameButtonChoice choiceButton = (GameButtonChoice) _button;
+	        
+	        if(isRessourcesEnouth(_game, choiceButton)){
+	        	if(_menu instanceof GameMenuBuilding) {
+					GameMenuBuilding builduingMenu = (GameMenuBuilding) _menu;
+					builduingMenu.SetTimeToReload(choiceButton.GetTimeToReload());
+					builduingMenu.SetLastTimeUsed(System.currentTimeMillis());
+				}
+	            applieCost(_game, choiceButton);
+	            applieReward(_game, choiceButton);
+        	    GoMenuWithRessources("town", _game);
+				_menu.SetIndexLevel((short)(0));	// TODO : ou mettre 0, je ne sais pas encore si on peut infiltrer plusieur fois, attention y a aussi les gods quest
+	        }
+			// TODO : faire quelque chose pour que le joeur sache qu'il n'a pas assez de ressources
+	    }
+	}
+	
 	public static void BtDecreseIndex(TheGame _game, GameMenu _menu, GameButton _button) {
 		if((_button instanceof GameButtonChoice)){
 	        GameButtonChoice choiceButton = (GameButtonChoice) _button;
@@ -313,6 +373,10 @@ public class GameMethode {
 	    if(ressources.GetRelic() < button.GetRelicCost()){
 	        result = false;
 	    }
+
+		if((!ressources.GetARitualPlace())&&(button.GetRitualPlaceCost())) {
+			result = false;
+		}
 	    
 	    return result;
 	}
@@ -325,6 +389,9 @@ public class GameMethode {
 	    ressources.SetKnowlege(ressources.GetKnowlege() - button.GetKnowlegeCost());
 	    ressources.SetSuspicion(ressources.GetSuspicion() - button.GetSuspicionCost());
 	    ressources.SetRelic(ressources.GetRelic() - button.GetRelicCost());
+		if(button.GetRitualPlaceCost()) {
+			ressources.SetARitualPlace(false);
+		}
 	}
 	
 	private static void applieReward(TheGame _game, GameButtonChoice button) {
@@ -335,5 +402,8 @@ public class GameMethode {
 	    ressources.SetKnowlege(ressources.GetKnowlege() + button.GetKnowlegeReward());
 	    ressources.SetSuspicion(ressources.GetSuspicion() + button.GetSuspicionReward());
 	    ressources.SetRelic(ressources.GetRelic() + button.GetRelicReward());
+		if(button.GetRitualPlaceReward()) {
+			ressources.SetARitualPlace(true);
+		}
 	}
 }
