@@ -4,8 +4,8 @@ public class GameMenuTown extends GameMenu {
     
     // CLASS VARIABLES /////////////////////////////////////////////////////////
     
-    protected short initialPositionX;
-    protected short initialPositionY;
+    protected int initialPositionX;
+    protected int initialPositionY;
     
     // CONSTRUCTOR /////////////////////////////////////////////////////////////
     
@@ -25,7 +25,7 @@ public class GameMenuTown extends GameMenu {
 
 		if(isActive) {
     		if(_lastGameInput.GetInputType() == InputType.SLIDE) {
-    		    SetPositionY((short)(_lastGameInput.GetFinishPositionY()-_lastGameInput.GetStartPositionY()));
+    		    SetPositionY((int)(_lastGameInput.GetFinishPositionY()-_lastGameInput.GetStartPositionY()));
     		}
 			super.InputUpdate(_lastGameInput);
 		}

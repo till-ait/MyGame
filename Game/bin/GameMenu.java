@@ -12,19 +12,20 @@ public class GameMenu {
 	protected int background;
 	protected int openningSound;
 
-	protected short positionX;
-	protected short positionY;
-	protected short lengthX;
-	protected short lengthY;
-	protected short margeX;
-	protected short margeY;
-	protected short nbButton;
-	protected short buttonLengthX;
-	protected short buttonLengthY;
-	protected short buttonMargeX;
-	protected short buttonMargeY;
+	protected int positionX;
+	protected int positionY;
+	protected int lengthX;
+	protected int lengthY;
+	protected int margeX;
+	protected int margeY;
+	protected int nbButton;
+	protected int buttonLengthX;
+	protected int buttonLengthY;
+	protected int buttonMargeX;
+	protected int buttonMargeY;
 
 	protected TheGame game;
+	protected long lastTimeActivated;
 
 	// STATIC VARIABLE /////////////////////////////////////////////////////////
 	
@@ -72,6 +73,7 @@ public class GameMenu {
 		name = _name;
 		game = _game;
 		buttonArray = new ArrayList<>();
+		lastTimeActivated = System.currentTimeMillis();
 
 		InitFromeFile();
 	}
@@ -85,46 +87,46 @@ public class GameMenu {
 		
 		dataFile.ReadDataFromFile(datasFirstLine, FILE_LINE_MENU_DATA);
 
-		SetPositionX(Short.parseShort(datasFirstLine.get(FILE_POSITION_POSITION_X)));    // TODO : creer une fonction pour racourcir la ligne, pour plus de clareter
-		SetPositionY(Short.parseShort(datasFirstLine.get(FILE_POSITION_POSITION_Y)));
-		SetLengthX(Short.parseShort(datasFirstLine.get(FILE_POSITION_LENGTH_X)));
-		SetLengthY(Short.parseShort(datasFirstLine.get(FILE_POSITION_LENGTH_Y)));
-		SetMargeX(Short.parseShort(datasFirstLine.get(FILE_POSITION_MARGE_X)));
-		SetMargeY(Short.parseShort(datasFirstLine.get(FILE_POSITION_MARGE_Y)));
-		SetNbButton(Short.parseShort(datasFirstLine.get(FILE_POSITION_NBBUTTON)));
-		SetButtonMargeX(Short.parseShort(datasFirstLine.get(FILE_POSITION_BUTTON_MARGE_X)));
-		SetButtonMargeY(Short.parseShort(datasFirstLine.get(FILE_POSITION_BUTTON_MARGE_Y)));
+		SetPositionX(Integer.parseInt(datasFirstLine.get(FILE_POSITION_POSITION_X)));    // TODO : creer une fonction pour racourcir la ligne, pour plus de clareter
+		SetPositionY(Integer.parseInt(datasFirstLine.get(FILE_POSITION_POSITION_Y)));
+		SetLengthX(Integer.parseInt(datasFirstLine.get(FILE_POSITION_LENGTH_X)));
+		SetLengthY(Integer.parseInt(datasFirstLine.get(FILE_POSITION_LENGTH_Y)));
+		SetMargeX(Integer.parseInt(datasFirstLine.get(FILE_POSITION_MARGE_X)));
+		SetMargeY(Integer.parseInt(datasFirstLine.get(FILE_POSITION_MARGE_Y)));
+		SetNbButton(Integer.parseInt(datasFirstLine.get(FILE_POSITION_NBBUTTON)));
+		SetButtonMargeX(Integer.parseInt(datasFirstLine.get(FILE_POSITION_BUTTON_MARGE_X)));
+		SetButtonMargeY(Integer.parseInt(datasFirstLine.get(FILE_POSITION_BUTTON_MARGE_Y)));
 
 		for(i=0; i<GetNbButton(); i++) {
 		    dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA+i+1);
 		    
 		    if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("regular")) {
-		        CreatRegularButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
-		                           Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
+		        CreatRegularButton(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
+		                           Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                           i);
 		    }
 		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("toggle")) {
-		        CreatToggleButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
+		        CreatToggleButton(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i);
 		    }
 		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("choice")) {
-		        CreatChoiceButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
+		        CreatChoiceButton(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i,
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_0)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_1)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_2)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_3)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_4)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_0)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_1)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_2)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_3)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_4)),
 		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_5)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_6)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_7)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_8)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_9)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_10)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_6)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_7)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_8)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_9)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_10)),
 		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_11)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD)));
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD)));
 		    }
 		}
         
@@ -135,7 +137,7 @@ public class GameMenu {
 		// TODO : SetSoundFromFile(_name);
 	}
 	
-	protected void CreatRegularButton(short _lengthX, short _lengthY, int i) {
+	protected void CreatRegularButton(int _lengthX, int _lengthY, int i) {
 	    if((_lengthX != 0) && (_lengthY != 0)) {
 	        buttonArray.add(new GameButton(name+"Bt"+i, game, this,
 				                           _lengthX, _lengthY, i));
@@ -145,7 +147,7 @@ public class GameMenu {
 	    }
 	}
 	
-	protected void CreatToggleButton(short _lengthX, short _lengthY, int i){
+	protected void CreatToggleButton(int _lengthX, int _lengthY, int i){
 	    if((_lengthX != 0) && (_lengthY != 0)) {
 	        buttonArray.add(new GameButtonToggle(name+"Bt"+i, game, this,
 				                           _lengthX, _lengthY, i));
@@ -155,7 +157,7 @@ public class GameMenu {
 	    }
 	}
 	
-	protected void CreatChoiceButton(short _lengthX, short _lengthY, int i,
+	protected void CreatChoiceButton(int _lengthX, int _lengthY, int i,
 	                  int _goldCost, int _cultistCost, int _knowlegeCost,
 	                  int _suspicionCost, int _relicCost, boolean _ritualPlaceCost, int _goldreward, 
 	                  int _cultistReward, int _knowlegeReward, int _suspicionReward,
@@ -191,8 +193,8 @@ public class GameMenu {
 // 	}
 	
 	public void OutputUpdate() {
-	    short buttonPositionX = (short) (positionX + margeX);
-	    short buttonPositionY = (short) (positionY + margeY);
+	    int buttonPositionX = (int) (positionX + margeX);
+	    int buttonPositionY = (int) (positionY + margeY);
 	    
 		if(isActive) {
 			System.out.println(name + " menu afficher, " + positionY);
@@ -202,7 +204,7 @@ public class GameMenu {
 			        button.OutputUpdate();
 				    // button.OutputUpdate(buttonPositionX, buttonPositionY);
 				    // // buttonPositionX += button.GetLengthX();
-				    // buttonPositionY = (short) (buttonPositionY + button.GetLengthY() + buttonMargeY);
+				    // buttonPositionY = (int) (buttonPositionY + button.GetLengthY() + buttonMargeY);
 			    }
 			}
 		}
@@ -226,31 +228,31 @@ public class GameMenu {
 		return openningSound;
 	}
 
-	public short GetPositionX() {
+	public int GetPositionX() {
 		return positionX;
 	}
 
-	public short GetPositionY() {
+	public int GetPositionY() {
 		return positionY;
 	}
 
-	public short GetLengthX() {
+	public int GetLengthX() {
 		return lengthX;
 	}
 
-	public short GetLengthY() {
+	public int GetLengthY() {
 		return lengthY;
 	}
 
-	public short GetMargeX() {
+	public int GetMargeX() {
 		return margeX;
 	}
 
-	public short GetMargeY() {
+	public int GetMargeY() {
 		return margeY;
 	}
 
-	public short GetNbButton() {
+	public int GetNbButton() {
 		return nbButton;
 	}
 
@@ -282,104 +284,109 @@ public class GameMenu {
 		return false;
 	}
 
-	public short GetButtonLengthX() {
+	public int GetButtonLengthX() {
 		return buttonLengthX;
 	}
 
-	public short GetButtonLengthY() {
+	public int GetButtonLengthY() {
 		return buttonLengthY;
 	}
 
-	public short GetButtonMargeX() {
+	public int GetButtonMargeX() {
 		return buttonMargeX;
 	}
 
-	public short GetButtonMargeY() {
+	public int GetButtonMargeY() {
 		return buttonMargeY;
 	}
 
-	public short GetIndexLevel() {
+	public int GetIndexLevel() {
 	    // necessaire pour le polymorphisme
 		return 0;
     }
 
+	public long GetLastTimeActivated() {
+		return lastTimeActivated;
+	}
+
 	public void SetIsActive(boolean _isActive) {
 		isActive = _isActive;
+		lastTimeActivated = System.currentTimeMillis();
 
 		for(GameButton button : buttonArray) {
 			button.SetIsActive(_isActive);
 		}
 	}
 
-	public void SetPositionX(short _positionX) {
+	public void SetPositionX(int _positionX) {
 	    for(GameButton button : buttonArray) {
-	        button.TranslatePositionX((short)(_positionX - positionX));
+	        button.TranslatePositionX((int)(_positionX - positionX));
 	    }
 		positionX = _positionX;
 	}
 
-	public void SetPositionY(short _positionY) {
+	public void SetPositionY(int _positionY) {
 	    for(GameButton button : buttonArray) {
-	        button.TranslatePositionY((short)(_positionY - positionY));
+	        button.TranslatePositionY((int)(_positionY - positionY));
 	    }
 		positionY = _positionY;
 	}
 
-	public void SetLengthX(short _lengthX) {
+	public void SetLengthX(int _lengthX) {
 		if(_lengthX >= 0) {
 			lengthX = _lengthX;
 		}
 	}
 
-	public void SetLengthY(short _lengthY) {
+	public void SetLengthY(int _lengthY) {
 		if(_lengthY >= 0) {
 			lengthY = _lengthY;
 		}
 	}
 
-	public void SetMargeX(short _margeX) {
+	public void SetMargeX(int _margeX) {
 		if(_margeX >= 0) {
 			margeX = _margeX;
 		}
 	}
 
-	public void SetMargeY(short _margeY) {
+	public void SetMargeY(int _margeY) {
 		if(_margeY >= 0) {
 			margeY = _margeY;
 		}
 	}
 
-	public void SetNbButton(short _nbButton) {
+	public void SetNbButton(int _nbButton) {
 		if(_nbButton >= 0) {
 			nbButton = _nbButton;
 		}
 	}
 
-	public void SetButtonLengthX(short _buttonLengthX) {
+	public void SetButtonLengthX(int _buttonLengthX) {
 		if(_buttonLengthX >= 0) {
 			buttonLengthX = _buttonLengthX;
 		}
 	}
 
-	public void SetButtonLengthY(short _buttonLengthY) {
+	public void SetButtonLengthY(int _buttonLengthY) {
 		if(_buttonLengthY >= 0) {
 			buttonLengthY = _buttonLengthY;
 		}
 	}
 
-	public void SetButtonMargeX(short _buttonMargeX) {
+	public void SetButtonMargeX(int _buttonMargeX) {
 		if(_buttonMargeX >= 0) {
 			buttonMargeX = _buttonMargeX;
 		}
 	}
 
-	public void SetButtonMargeY(short _buttonMargeY) {
+	public void SetButtonMargeY(int _buttonMargeY) {
 		if(_buttonMargeY >= 0) {
 			buttonMargeY = _buttonMargeY;
 		}
 	}
 	
-	public void SetIndexLevel(short _indexLevel) {
+	public void SetIndexLevel(int _indexLevel) {
 	    // necessaire pour le polymorphisme
     }
 }

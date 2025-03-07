@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class TheGame {
@@ -9,8 +10,10 @@ public class TheGame {
 	protected ArrayList<GameMenu> menuArray;
 	protected ArrayList<GameMenu> buildingArray;    // TODO : il faut que quand on fasse nouvelle partie ou jouer l'array soit remplie des batiments pour cette game
 	protected ArrayList<GameMenu> eventArray;	// TODO : il faut remplire l'array aleatoirement d'event, une fois que l'array est entrement parcouru on la remelange et on l'a refait
+	protected int indexEventArray;
 	protected GameMenuGodChoice.GodsNames worshipedGod;
 	protected long lastTimeUpdate;
+	protected long lastTimeEvent;
 	protected GameInput lastGameInput;
 
 	protected long screenLengthX; // les distance sont proportionel a ces vairable
@@ -21,6 +24,9 @@ public class TheGame {
 	protected boolean soundOn;
 
 	protected String theGameFilePathe;
+	
+	protected boolean isGateClosed;		// TODO : mettre a true si la porte est dans la game
+	protected boolean isInquisitionActive;
 
 	// STATIC VARIABLE /////////////////////////////////////////////////////////
 
@@ -29,6 +35,19 @@ public class TheGame {
 	public static final int FILE_EVENT_NAME_LINE = 1;
 	public static final int FILE_MENU_PARAMETERS_FIRST_LINE = 2;
 	public static final int FILE_POSITION_MENU_TYPE = 0;
+	public static final int TIME_BITWEEN_EVENT = 6000;		// 1 minute
+	public static final int TIME_OFFSET_TO_ACTIVATE_EVENT = 1000;	// time to let the player see the town
+
+	public static final int FILE_POSITION_INIT_GOLD = 1;
+	public static final int FILE_POSITION_INIT_CULTIST = 2;
+	public static final int FILE_POSITION_INIT_KNOWLEGE = 3;
+	public static final int FILE_POSITION_INIT_SUSPICION = 4;
+	public static final int FILE_POSITION_INIT_RELIC = 5;
+	public static final int FILE_POSITION_EVENT_THRESHOLD_GOLD = 6;
+	public static final int FILE_POSITION_EVENT_THRESHOLD_CULTIST = 7;
+	public static final int FILE_POSITION_EVENT_THRESHOLD_KNOWLEGE = 8;
+	public static final int FILE_POSITION_EVENT_THRESHOLD_SUSPICION = 9;
+	public static final int FILE_POSITION_EVENT_THRESHOLD_RELIC = 10;
 
 	// CONSTRUCTEUR /////////////////////////////////////////////////////////////
 	public TheGame() {
@@ -36,7 +55,11 @@ public class TheGame {
 		menuArray = new ArrayList<>();
 		buildingArray = new ArrayList<>();
 		eventArray = new ArrayList<>();		// la remplir ici ou quand appuie sur nouvelle partie
+		indexEventArray = 0;
+		isGateClosed = false;
+		isInquisitionActive = false;
 		lastTimeUpdate = System.currentTimeMillis();
+		lastTimeEvent = lastTimeUpdate;
 		lastGameInput = new GameInput();
 
 		screenLengthX = 1080;
@@ -63,6 +86,7 @@ public class TheGame {
 			eventArray.add(new GameMenuEvent(eventName, this));
 			System.out.println("Event " + eventName + " cree");
 		}
+		Collections.shuffle(eventArray);
 
 		i = FILE_MENU_PARAMETERS_FIRST_LINE;
 		for(String menuName : datasfirstLine) {
@@ -78,11 +102,16 @@ public class TheGame {
 
 			if(datas.get(FILE_POSITION_MENU_TYPE).equals("ressources")){
 			    menuArray.add(new GameMenuRessources(menuName, this,
-			                                         Integer.parseInt(datas.get(1)),
-			                                         Integer.parseInt(datas.get(2)),
-			                                         Integer.parseInt(datas.get(3)),
-			                                         Integer.parseInt(datas.get(4)),
-			                                         Integer.parseInt(datas.get(5))));
+			                                         Integer.parseInt(datas.get(FILE_POSITION_INIT_GOLD)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_INIT_CULTIST)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_INIT_KNOWLEGE)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_INIT_SUSPICION)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_INIT_RELIC)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_EVENT_THRESHOLD_GOLD)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_EVENT_THRESHOLD_CULTIST)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_EVENT_THRESHOLD_KNOWLEGE)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_EVENT_THRESHOLD_SUSPICION)),
+			                                         Integer.parseInt(datas.get(FILE_POSITION_EVENT_THRESHOLD_RELIC))));
 			}
 
 			if(datas.get(FILE_POSITION_MENU_TYPE).equals("godsChoice")) {
@@ -95,6 +124,8 @@ public class TheGame {
 			
 			i++;
 		}
+
+		// TODO : mettre dans des fonction la c'est le bordel
 	}
 
 	// UPDATE //////////////////////////////////////////////////////////////////
@@ -109,7 +140,7 @@ public class TheGame {
 
 			lastTimeUpdate = System.currentTimeMillis();
 
-			if(i==50) { // a supprimer
+			if(i==250) { // a supprimer
 				isGameOn = false;
 			}
 
@@ -126,7 +157,7 @@ public class TheGame {
             SimulateInput(i, 38, 101, 251, 0, 0);
             // SimulateInput(i, 26, 101, 301, 0, 0);
             // if(i==29){
-            //     lastGameInput.tempNewInput(InputType.SLIDE, (short)10, (short)100, (short)20, (short)150);
+            //     lastGameInput.tempNewInput(InputType.SLIDE, (int)10, (int)100, (int)20, (int)150);
             // }
             // SimulateInput(i, 32, 101, 351, 0, 0);
             // SimulateInput(i, 36, 101, 551, 0, 0);
@@ -146,11 +177,11 @@ public class TheGame {
 	
 	public void SimulateInput(int i, int fi, int x, int y, int fx, int fy) {
 	    if(i == fi) {
-			lastGameInput.tempNewInput(InputType.PRESS, (short)x, (short)y, (short)fx, (short)fy);
+			lastGameInput.tempNewInput(InputType.PRESS, x, y, fx, fy);
 		}
 		
 		if(i == (fi+2)) {
-			lastGameInput.tempNewInput(InputType.UNPRESS, (short)x, (short)y, (short)fx, (short)fy);
+			lastGameInput.tempNewInput(InputType.UNPRESS, x, y, fx, fy);
 		}
 	}
 
@@ -164,7 +195,12 @@ public class TheGame {
 			    building.InputUpdate(lastGameInput);
 			}
 
-			lastGameInput.SetIsNewInput(false); // l'update a ete faite donc plus new
+			lastGameInput.SetIsNewInput(false);
+		}
+
+		if((GetMenu("town").GetIsActive()) && (timeToActiveAnEvent())) {	// TDO : akouter peut etre un delay pour pas avoir le cas ou le joueur est dans un bat et ca va a l'event sans passer par town
+			((GameMenuRessources)GetMenu("ressources")).RessourceThresholdEvent();
+			activateEvent();
 		}
 		
 		// TODO : On incremante le temps si le temps est bon alors on met l'un des evenelent a actif et quand le menu town sera activer alors
@@ -175,14 +211,66 @@ public class TheGame {
 	}
 
 	public void OutputUpdate() { // TODO : peut etre ajouter une verif si quelque chose a bouge pour ne pas refresh pour r, peut etre chiant pour faire des anim
+		for(GameMenu building : buildingArray){
+		    building.OutputUpdate();
+		}
+
+		for(GameMenu event : eventArray) {
+			event.OutputUpdate();
+		}
+
 		for(GameMenu menu : menuArray) {
 			menu.OutputUpdate();
 		}
 		
-		for(GameMenu building : buildingArray){
-		    building.OutputUpdate();
+	}
+
+	// PRIVATE FUNCTION ////////////////////////////////////////////////////////
+
+	private boolean timeToActiveAnEvent() {
+		if(((lastTimeEvent+TIME_BITWEEN_EVENT) < System.currentTimeMillis()) &&
+			(GetMenu("town").GetLastTimeActivated() < System.currentTimeMillis())) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
+
+	private void deletOneShotEvent() {
+		int i=0;
+
+		while (i<eventArray.size()) {
+			GameMenuEvent event = (GameMenuEvent) eventArray.get(i);
+			
+			if(event.GetOneShot()){
+				eventArray.remove(i);
+				i--;
+			}
+
+			i++;
+		}
+	}
+
+	private void activateEvent() {
+		GameMenuEvent event = (GameMenuEvent) eventArray.get(indexEventArray);
+
+		if(event.isConditionOk()) {		// TODO : verifier les evenement a condition limite
+			lastTimeEvent = System.currentTimeMillis();
+			SetAllMenuIsActive(false);
+			SetMenuIsActive("ressources", true);
+			SetEventIsActive(indexEventArray, true);
+		}
+
+		indexEventArray++;
+
+		if(indexEventArray == eventArray.size()) {
+			indexEventArray = 0;
+			deletOneShotEvent();
+			Collections.shuffle(eventArray);
+		}
+	}
+
 
 	// GETTER AND SETTER ///////////////////////////////////////////////////////
 
@@ -210,12 +298,28 @@ public class TheGame {
 		return menuArray.get(_i);
 	}
 
+	public int GetEventArraySize() {
+		return eventArray.size();
+	}
+
 	public void AddMenuArray(GameMenu _newMenu) {
 		menuArray.add(_newMenu);
 	}
 
+	public void AddEventArray(GameMenu _event, int _i) {
+		eventArray.add(_i, _event);
+	}
+
+	public void RemoveEventArray(int _i) {
+		eventArray.remove(_i);
+	}
+
 	public long GetLastTimeUpdate() {
 		return lastTimeUpdate;
+	}
+
+	public long GetLastTimeEvent() {
+		return lastTimeEvent;
 	}
 
 	public String GetTheGameFilePath() {
@@ -257,6 +361,30 @@ public class TheGame {
 		
 		return null;
 	}
+	
+	public GameMenu GetEvent(String _name) {
+		GameMenu returnEvent = null;
+		
+		for(GameMenu event : eventArray) {
+		    if(event.GetName().equals(_name)) {
+		        returnEvent = event;
+		    }
+		}
+		
+		return returnEvent;
+	}
+	
+	public GameMenu GetEvent(int _i) {
+		if(_i < eventArray.size()) {
+	        return eventArray.get(_i);
+		}
+		
+		return null;
+	}
+
+	public int GetIndexEventArray() {
+		return indexEventArray;
+	}
 
 	public GameMenuGodChoice.GodsNames GetWorshipedGod() {
 		return worshipedGod;
@@ -268,6 +396,18 @@ public class TheGame {
 				menu.SetIsActive(_isActive);
 			}
 		}
+	}
+
+	public void SetEventIsActive(String _name, boolean _isActive) {
+		for(GameMenu event : eventArray) {
+			if(event.GetName().equals(_name)) {
+				event.SetIsActive(_isActive);
+			}
+		}
+	}
+	
+	public void SetEventIsActive(int _i, boolean _isActive) {
+		eventArray.get(_i).SetIsActive(_isActive);
 	}
 	
 	public void SetBuildingMenuIsActive(int _i, boolean _isActive) {
@@ -306,5 +446,22 @@ public class TheGame {
 
 	public void SetWorshipedGod(GameMenuGodChoice.GodsNames _worshipedGod) {
 		worshipedGod = _worshipedGod;
+	}
+
+	public void SetLastTimeEvent(long _lastTimeEvent) {
+		lastTimeEvent = _lastTimeEvent;
+	}
+
+	public void SetIsInquisitionActive(boolean _isInquisitionActive) {
+		isInquisitionActive = _isInquisitionActive;
+	}
+
+	public void SetIndexEventArray(int _indexEventArray) {
+		if(_indexEventArray > 0) {
+			indexEventArray = _indexEventArray;
+		}
+		else {
+			indexEventArray = 0;
+		}
 	}
 }

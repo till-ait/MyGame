@@ -10,10 +10,10 @@ public class GameInput {
 	// CLASS VARIABLES /////////////////////////////////////////////////////////
 
 	private InputType inputType;
-	private short startPositionX;
-	private short startPositionY;
-	private short finishPositionX;
-	private short finishPositionY;
+	private int startPositionX;
+	private int startPositionY;
+	private int finishPositionX;
+	private int finishPositionY;
 	private boolean isNewInput;
 
 	// CONSTRUCTEUR ////////////////////////////////////////////////////////////
@@ -32,8 +32,8 @@ public class GameInput {
 	// TODO : il faut override la fonction d'adroid studio qui recup InputType
 
 	public void tempNewInput(InputType _inputType,
-	                         short _startPositionX, short _startPositionY,
-	                         short _finishPositionX, short _finishPositionY) {
+	                         int _startPositionX, int _startPositionY,
+	                         int _finishPositionX, int _finishPositionY) {
 		if(!isNewInput) {
 			inputType = _inputType;
 			startPositionX = _startPositionX;
@@ -58,19 +58,19 @@ public class GameInput {
 		return inputType;
 	}
 
-	public short GetStartPositionX() {
+	public int GetStartPositionX() {
 		return startPositionX;
 	}
 
-	public short GetStartPositionY() {
+	public int GetStartPositionY() {
 		return startPositionY;
 	}
 
-	public short GetFinishPositionX() {
+	public int GetFinishPositionX() {
 		return finishPositionX;
 	}
 
-	public short GetFinishPositionY() {
+	public int GetFinishPositionY() {
 		return finishPositionY;
 	}
 }

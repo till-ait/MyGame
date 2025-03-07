@@ -18,12 +18,12 @@ public class GameButton {
 	protected int text;
 	protected int sound;
 
-	protected short initialPositionX; // TODO : pas sur que j'en ai besoin si la position du bouton est calculer par rappor a la position du menu
-	protected short initialPositionY;
-	protected short positionX;
-	protected short positionY;
-	protected short lengthX;
-	protected short lengthY;
+	protected int initialPositionX; // TODO : pas sur que j'en ai besoin si la position du bouton est calculer par rappor a la position du menu
+	protected int initialPositionY;
+	protected int positionX;
+	protected int positionY;
+	protected int lengthX;
+	protected int lengthY;
 	protected int positionInArray;
 
 	// STATIC VARIABLES ////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ public class GameButton {
 	// CONSTRUCTEUR ////////////////////////////////////////////////////////////
 
 	public GameButton(String _name, TheGame _game, GameMenu _menu,
-	                  short _lengthX, short _lengthY, int _positionInArray) {
+	                  int _lengthX, int _lengthY, int _positionInArray) {
 		name = _name;
 		game = _game;
 		menu = _menu;
@@ -80,20 +80,20 @@ public class GameButton {
 		FileReading dataFile = new FileReading(name+"Data.txt");  // TODO : remplacer par name + ".txt"
 		dataFile.ReadDataFromFile(datas, FILE_FIRST_LINE);
 
-		SetLengthX(Short.parseShort(datas.get(FILE_POSITION_X)));
-		SetLengthY(Short.parseShort(datas.get(FILE_POSITION_Y)));
-		SetLengthX(Short.parseShort(datas.get(FILE_POSITION_LENGTH_X)));
-		SetLengthY(Short.parseShort(datas.get(FILE_POSITION_LENGTH_Y)));
+		SetLengthX(Integer.parseInt(datas.get(FILE_POSITION_X)));
+		SetLengthY(Integer.parseInt(datas.get(FILE_POSITION_Y)));
+		SetLengthX(Integer.parseInt(datas.get(FILE_POSITION_LENGTH_X)));
+		SetLengthY(Integer.parseInt(datas.get(FILE_POSITION_LENGTH_Y)));
 	}
 
 	public void InitPositionFromMenu() {
 		ArrayList<GameButton> buttonArray = menu.GetCopyButtonArray();
 		int i=0;
-		short offsetX = menu.GetMargeX();
-		short offsetY = menu.GetMargeY();
+		int offsetX = menu.GetMargeX();
+		int offsetY = menu.GetMargeY();
 
 		for(i=0; i<positionInArray; i++) {
-			offsetY = (short) (offsetY + buttonArray.get(i).GetLengthY() + menu.GetButtonMargeY());
+			offsetY = (int) (offsetY + buttonArray.get(i).GetLengthY() + menu.GetButtonMargeY());
 		}
 
 		initialPositionX = offsetX;
@@ -164,7 +164,7 @@ public class GameButton {
 		}
 	}
 	
-	public void OutputUpdate(short _positionX, short _positionY) {  // TODO : pourquoi j'ai fait cette fonction ??? l'autre marche tres bien
+	public void OutputUpdate(int _positionX, int _positionY) {  // TODO : pourquoi j'ai fait cette fonction ??? l'autre marche tres bien
 
 		// TODO : si la position X et/ou Y du bouton est or de l'ecran ne pas l'afficher
 
@@ -218,27 +218,27 @@ public class GameButton {
 		return sound;
 	}
 
-	public short GetInitialPositionX() {
+	public int GetInitialPositionX() {
 		return initialPositionX;
 	}
 
-	public short GetInitialPositionY() {
+	public int GetInitialPositionY() {
 		return initialPositionY;
 	}
 
-	public short GetPositionX() {
+	public int GetPositionX() {
 		return positionX;
 	}
 
-	public short GetPositionY() {
+	public int GetPositionY() {
 		return positionY;
 	}
 
-	public short GetLengthX() {
+	public int GetLengthX() {
 		return lengthX;
 	}
 
-	public short GetLengthY() {
+	public int GetLengthY() {
 		return lengthY;
 	}
 
@@ -257,37 +257,37 @@ public class GameButton {
 		isPressed = _isPressed;
 	}
 
-	public void SetInitialPositionX(short _initialPositionX) {
+	public void SetInitialPositionX(int _initialPositionX) {
 		initialPositionX = _initialPositionX;
 	}
 
-	public void SetInitialPositionY(short _initialPositionY) {
+	public void SetInitialPositionY(int _initialPositionY) {
 		initialPositionY = _initialPositionY;
 	}
 
-	public void SetPositionX(short _positionX) {
+	public void SetPositionX(int _positionX) {
 		positionX = _positionX;
 	}
 
-	public void TranslatePositionX(short _translationX) {
-		positionX = (short) (positionX + _translationX);
+	public void TranslatePositionX(int _translationX) {
+		positionX = (int) (positionX + _translationX);
 	}
 
-	public void SetPositionY(short _positionY) {
+	public void SetPositionY(int _positionY) {
 		positionY = _positionY;
 	}
 
-	public void TranslatePositionY(short _translationY) {
-		positionY = (short)( positionY + _translationY);
+	public void TranslatePositionY(int _translationY) {
+		positionY = (int)( positionY + _translationY);
 	}
 
-	public void SetLengthX(short _lengthX) {
+	public void SetLengthX(int _lengthX) {
 		if(_lengthX >= 0) {
 			lengthX = _lengthX;
 		}
 	}
 
-	public void SetLengthY(short _lengthY) {
+	public void SetLengthY(int _lengthY) {
 		if(_lengthY >= 0) {
 			lengthY = _lengthY;
 		}

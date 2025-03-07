@@ -6,17 +6,17 @@ public class GameMenuBuilding extends GameMenu {
 
 	protected boolean isLoaded;
 	protected BuildingState buildingState;
-	protected short infiltrationLevel;
+	protected int infiltrationLevel;
 	protected boolean isDoorBlocked;    // TODO : a la creation parcourir les bat et voir si la porte y es et est ce qu'elle est blocante, ou alors mieu a chaque fois que c'est mis a actif
 	protected long lastTimeUsed;    // heure a la darniere utilisation, comparaison si la nouvelle heure est plus grande en plus time reload
-	protected ArrayList<Short> infiltationLevelRequireArray;
+	protected ArrayList<Integer> infiltationLevelRequireArray;
 	protected int timeToReload;
 
 	// STATIC VARIABLES ////////////////////////////////////////////////////////
 
 	public static final int TIME_TO_RELOAD = 100; // en ms, ne plus mettre static si plus le meme pour tous le monde
 	
-	public static final short INITIAL_INFILTRATION_LEVEL = 0;
+	public static final int INITIAL_INFILTRATION_LEVEL = 0;
 	public static final boolean INITIAL_IS_LOADED_VALUE = true;
 
 	// ENUM ////////////////////////////////////////////////////////////////////
@@ -59,50 +59,50 @@ public class GameMenuBuilding extends GameMenu {
 		
 		dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA);
 
-		SetPositionX(Short.parseShort(datas.get(FILE_POSITION_POSITION_X)));
-		SetPositionY(Short.parseShort(datas.get(FILE_POSITION_POSITION_Y)));
-		SetLengthX(Short.parseShort(datas.get(FILE_POSITION_LENGTH_X)));
-		SetLengthY(Short.parseShort(datas.get(FILE_POSITION_LENGTH_Y)));
-		SetMargeX(Short.parseShort(datas.get(FILE_POSITION_MARGE_X)));
-		SetMargeY(Short.parseShort(datas.get(FILE_POSITION_MARGE_Y)));
-		SetNbButton(Short.parseShort(datas.get(FILE_POSITION_NBBUTTON)));
+		SetPositionX(Integer.parseInt(datas.get(FILE_POSITION_POSITION_X)));
+		SetPositionY(Integer.parseInt(datas.get(FILE_POSITION_POSITION_Y)));
+		SetLengthX(Integer.parseInt(datas.get(FILE_POSITION_LENGTH_X)));
+		SetLengthY(Integer.parseInt(datas.get(FILE_POSITION_LENGTH_Y)));
+		SetMargeX(Integer.parseInt(datas.get(FILE_POSITION_MARGE_X)));
+		SetMargeY(Integer.parseInt(datas.get(FILE_POSITION_MARGE_Y)));
+		SetNbButton(Integer.parseInt(datas.get(FILE_POSITION_NBBUTTON)));
 		SetIsActive(Boolean.parseBoolean(datas.get(FILE_POSITION_DEFAULT_ACTIV)));
-		SetButtonMargeX(Short.parseShort(datas.get(FILE_POSITION_BUTTON_MARGE_X)));
-		SetButtonMargeY(Short.parseShort(datas.get(FILE_POSITION_BUTTON_MARGE_Y)));
+		SetButtonMargeX(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_MARGE_X)));
+		SetButtonMargeY(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_MARGE_Y)));
 		
 		for(i=0; i<GetNbButton(); i++) {
 		    dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA+i+1);
 		    
 		    if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("regular")) {
-		        CreatRegularButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
-		                           Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
+		        CreatRegularButton(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
+		                           Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                           i);
 		    }
 		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("toggle")) {
-		        CreatToggleButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
+		        CreatToggleButton(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i);
 		    }
 		    else if(datas.get(FILE_POSITION_BUTTON_TYPE).equals("choice")) {
-		        CreatChoiceButton(Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
+		        CreatChoiceButton(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_X)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_LENGTH_Y)),
 		                          i,
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_0)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_1)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_2)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_3)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_4)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_0)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_1)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_2)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_3)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_4)),
 		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_5)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_6)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_7)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_8)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_9)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_10)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_6)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_7)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_8)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_9)),
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_10)),
 		                          Boolean.parseBoolean(datas.get(FILE_POSITION_BUTTON_CHOICE_RES_11)),
-		                          Short.parseShort(datas.get(FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD)));
+		                          Integer.parseInt(datas.get(FILE_POSITION_BUTTON_CHOICE_TIME_RELOAD)));
 		    }
 		  
-		  infiltationLevelRequireArray.add(Short.parseShort(datas.get(FILE_POSITION_BUTTON_INDEX_LEVEL)));
+		  infiltationLevelRequireArray.add(Integer.parseInt(datas.get(FILE_POSITION_BUTTON_INDEX_LEVEL)));
 		}
         
         SetIsActive(GetIsActive());
@@ -137,7 +137,7 @@ public class GameMenuBuilding extends GameMenu {
         return isLoaded;
     }
     
-    public short GetIndexLevel(){
+    public int GetIndexLevel(){
         return infiltrationLevel;
     }
     
@@ -171,13 +171,13 @@ public class GameMenuBuilding extends GameMenu {
     }
     
 	@Override
-    public void SetIndexLevel(short _indexLevel){
+    public void SetIndexLevel(int _indexLevel){
         int i=0;
 
 		if(_indexLevel > 0) {
 			infiltrationLevel = _indexLevel;
 			
-			for(Short requireLevel : infiltationLevelRequireArray){
+			for(int requireLevel : infiltationLevelRequireArray){
 				if(requireLevel <= infiltrationLevel) {
 					buttonArray.get(i).SetIsActive(true);
 				} 

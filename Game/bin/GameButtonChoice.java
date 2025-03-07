@@ -38,7 +38,7 @@ public class GameButtonChoice extends GameButton {
     // CONSTRUCTEUR ////////////////////////////////////////////////////////////
     
     public GameButtonChoice(String _name, TheGame _game, GameMenu _menu,
-	                  short _lengthX, short _lengthY, int _positionInArray,
+	                  int _lengthX, int _lengthY, int _positionInArray,
 	                  int _goldCost, int _cultistCost, int _knowlegeCost,
 	                  int _suspicionCost, int _relicCost, boolean _ritualPlaceCost, int _goldreward, 
 	                  int _cultistReward, int _knowlegeReward, int _suspicionReward,
@@ -124,7 +124,7 @@ public class GameButtonChoice extends GameButton {
     }
     
     @Override
-    public void OutputUpdate(short _positionX, short _positionY){
+    public void OutputUpdate(int _positionX, int _positionY){
         
         super.OutputUpdate(_positionX, _positionY);
     

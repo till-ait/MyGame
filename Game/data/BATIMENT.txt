@@ -1,3 +1,3 @@
-1, 3, 80, 80, 10, 300, 3, false, 0, 100
+1, 3, 80, 80, 10, 300, NBBOUTTON, false, 0, 100
 regular, 100, 100, 0
-choice, 100, 100, level, gold-, cult-, know-, sus-, relic-, ritual-, gold+, cult+, know+, sus+, relic+, ritual+, time
+choice, 100, 100, level, gold-, cult-, know-, sus-, relic-, false, gold+, cult+, know+, sus+, relic+, false, time

@@ -10,6 +10,8 @@ public class GameMenuEvent extends GameMenu {
     protected int suspicionCondition;
     protected int relicCondition;
 
+    protected boolean oneShot;
+
 	// STATIC VARIABLES ////////////////////////////////////////////////////////
     
     public static final int FILE_POSITION_CONDITION_GOLD = 10;
@@ -17,6 +19,7 @@ public class GameMenuEvent extends GameMenu {
     public static final int FILE_POSITION_CONDITION_KNOWLEGE = 12;
     public static final int FILE_POSITION_CONDITION_SUSPICION = 13;
     public static final int FILE_POSITION_CONDITION_RELIC = 14;
+    public static final int FILE_POSITION_ONE_SHOT = 15;
 
 	// CONSTRUCTOR /////////////////////////////////////////////////////////////
 
@@ -54,6 +57,7 @@ public class GameMenuEvent extends GameMenu {
         knowlegeCondition = Integer.parseInt(datas.get(FILE_POSITION_CONDITION_KNOWLEGE));
         suspicionCondition = Integer.parseInt(datas.get(FILE_POSITION_CONDITION_SUSPICION));
         relicCondition = Integer.parseInt(datas.get(FILE_POSITION_CONDITION_RELIC));
+        oneShot = Boolean.parseBoolean(datas.get(FILE_POSITION_ONE_SHOT));
 		
 		// TODO : SetBackgroudFromFile(_name);
 		// TODO : SetSoundFromFile(_name);
@@ -79,5 +83,36 @@ public class GameMenuEvent extends GameMenu {
 
     public int GetRelicCondition(){
         return relicCondition;
+    }
+
+    public boolean GetOneShot() {
+        return oneShot;
+    }
+
+    public boolean isConditionOk() {
+        boolean result = true;
+        GameMenuRessources ressources = (GameMenuRessources) game.GetMenu("ressources");
+        
+        if(ressources.GetGold() < goldCondition) {
+            result = false;
+        }
+        
+        if(ressources.GetCultist() < cultistCondition) {
+            result = false;
+        }
+        
+        if(ressources.GetKnowlege() < knowlegeCondition) {
+            result = false;
+        }
+        
+        if(ressources.GetSuspicion() < suspicionCondition) {
+            result = false;
+        }
+        
+        if(ressources.GetRelic() < relicCondition) {
+            result = false;
+        }
+
+        return result;
     }
 }

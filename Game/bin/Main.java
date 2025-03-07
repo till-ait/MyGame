@@ -83,4 +83,17 @@ si de rapport different on met des bande sur le cotC) et on recentre
     TODO : il faut ajouter une variable rituel organiser, et ajouter dans les ressources necessaire des bt choice le rituel, il sera necessaire pour realiser la dernier quetes
     TODO : ajouter un menu pour le chateau dans lequel on peut ajouter des specificiter, le chateau je pense je l'ajouterais plus tard une fois apres les testes,
     peut etre faire en sorte que le chateau puissent modifier les evenement aleatoire, genre on investie dans les egout du coup plus de maladie
+
+    TODO : faire en sorte qu'il soit possible d'ajouter un evenement a la liste des evenement et qu'il arrive dans les 3 prochain et apres l'enlever, pour le rituel et les dscente de garde
+    peut etre le faire dans le input update du menu ressources
+
+
+
+    DEMAIN il faut que je finisse de faire le event, notemment les event conditionnel
+    il y a aussi la verification que la porte est ouverte pour aller dans les bat de la haute ville
+    il faut que je fasse les fichiers de parametre des event et des gods quest
+    il faut aussi ajouter la composition aleatoire de la ville
+    il faut commencer a penser au position x et y et au largeur des images
+
+    peut etre mettre le text dans les fichier des menu
 */

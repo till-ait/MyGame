@@ -13,7 +13,7 @@ public class GameButtonToggle extends GameButton {
     // CONSTRUCTOR ////////////////////////////////////////////////////////////
     
     public GameButtonToggle(String _name, TheGame _game, GameMenu _menu,
-	                  short _lengthX, short _lengthY, int _positionInArray){
+	                  int _lengthX, int _lengthY, int _positionInArray){
         super(_name, _game, _menu, _lengthX, _lengthY, _positionInArray);
         
         isToggled = false;

@@ -7,7 +7,7 @@ public class GameMenuGodQuest extends GameMenu {
 
     // indiex i = l'avancement dans la quete, seul la quet d'indice correspondant est affiche.
 
-    protected short questProgress;
+    protected int questProgress;
     protected int timeToDoQuest;     // TODO : en ms, si il rest 10% du temps mettre le bouton pour voir la quete en rouge, Si le temps est fini declancher un evenement de colere des dieux, soit perdre un questProgress, soit perdre des ressource ou relic
 
     protected GameMenuGodChoice.GodsNames god;
@@ -72,47 +72,47 @@ public class GameMenuGodQuest extends GameMenu {
     protected void CreatChoiceButton(String _data, int _i) {
         String[] splitData = _data.split(",");
         int i=0;
-        short lengthX=0, lengthY=0, goldCost=0, cultistCost=0, knowlegeCost=0, suspicionCost=0, relicCost=0,
+        int lengthX=0, lengthY=0, goldCost=0, cultistCost=0, knowlegeCost=0, suspicionCost=0, relicCost=0,
         goldReward=0, cultistReward=0, knowlegeReward=0, suspicionReward=0, relicReward=0;
         boolean ritualPlaceCost = false, ritualPlaceReward=false;
 
         while (i < splitData.length) {
             switch(splitData[i]){
             case "lengthX":
-                lengthX = Short.parseShort(splitData[i+1]);
+                lengthX = Integer.parseInt(splitData[i+1]);
                 break;
             case "lengthY":
-                lengthY = Short.parseShort(splitData[i+1]);
+                lengthY = Integer.parseInt(splitData[i+1]);
                 break;
             case "goldCost":
-                goldCost = Short.parseShort(splitData[i+1]);
+                goldCost = Integer.parseInt(splitData[i+1]);
                 break;
             case "cultistCost":
-                cultistCost = Short.parseShort(splitData[i+1]);
+                cultistCost = Integer.parseInt(splitData[i+1]);
                 break;
             case "knowlegeCost":
-                knowlegeCost = Short.parseShort(splitData[i+1]);
+                knowlegeCost = Integer.parseInt(splitData[i+1]);
                 break;
             case "suspicionCost":
-                suspicionCost = Short.parseShort(splitData[i+1]);
+                suspicionCost = Integer.parseInt(splitData[i+1]);
                 break;
             case "relicCost":
-                relicCost = Short.parseShort(splitData[i+1]);
+                relicCost = Integer.parseInt(splitData[i+1]);
                 break;
             case "goldReward":
-                goldReward = Short.parseShort(splitData[i+1]);
+                goldReward = Integer.parseInt(splitData[i+1]);
                 break;
             case "cultistReward":
-                cultistReward = Short.parseShort(splitData[i+1]);
+                cultistReward = Integer.parseInt(splitData[i+1]);
                 break;
             case "knowlegeReward":
-                knowlegeReward = Short.parseShort(splitData[i+1]);
+                knowlegeReward = Integer.parseInt(splitData[i+1]);
                 break;
             case "suspicionReward":
-                suspicionReward = Short.parseShort(splitData[i+1]);
+                suspicionReward = Integer.parseInt(splitData[i+1]);
                 break;
             case "relicReward":
-                relicReward = Short.parseShort(splitData[i+1]);
+                relicReward = Integer.parseInt(splitData[i+1]);
                 break;
             case "ritualPlaceCost":
                 ritualPlaceCost = Boolean.parseBoolean(splitData[i+1]);
@@ -138,12 +138,12 @@ public class GameMenuGodQuest extends GameMenu {
     // GETTER AND SETTER ////////////////////////////////////
 
     @Override
-    public short GetIndexLevel() {
+    public int GetIndexLevel() {
         return questProgress;
     }
 
     @Override
-    public void SetIndexLevel(short _indexLevel) {
+    public void SetIndexLevel(int _indexLevel) {
         questProgress = _indexLevel;
     }
 
