@@ -133,9 +133,14 @@ public class GameMenuGodQuest extends GameMenu {
 
     // OVERRIDE ///////////////////////////////////////////////
 
+    @Override
+    public void InputUpdate(GameInput _lastGameInput) {
+        super.InputUpdate(_lastGameInput);
 
-
-    // GETTER AND SETTER ////////////////////////////////////
+        if(questProgress == buttonArray.size()) {
+            game.AddEventArray((GameMenu)(new GameMenuEvent("winEvent",game)),game.GetIndexEventArray());
+        }
+    }
 
     @Override
     public int GetIndexLevel() {

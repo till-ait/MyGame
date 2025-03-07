@@ -96,4 +96,5 @@ si de rapport different on met des bande sur le cotC) et on recentre
     il faut commencer a penser au position x et y et au largeur des images
 
     peut etre mettre le text dans les fichier des menu
+    // TODO : faire que la denier quest mette le win event
 */

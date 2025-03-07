@@ -9,6 +9,7 @@ public class GameMethode {
 			break;
 		case "principaleBt0":	// New game // TODO : passer par le menu god choice et pas directement town
 		case "winBt0":
+		case "winEventBt0":
 		case "loseBt0":
 			NewRun(_game);
 			break;
@@ -41,6 +42,7 @@ public class GameMethode {
 			break;
 		case "settingBt3":		// Main menu
 		case "winBt1":
+		case "winEventBt1":
 		case "loseBt1":
 		case "tutoBt0":
 		case "creditBt0":
