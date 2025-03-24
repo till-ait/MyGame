@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 
 public class GameMenuGodQuest extends GameMenu {
-    // TODO EST LE MENU DU DIEU IL Y AURA LES QUEST A ACCOMPLIR
     
     // VARIABLES ////////////////////////////////////////////
 
     // indiex i = l'avancement dans la quete, seul la quet d'indice correspondant est affiche.
 
     protected int questProgress;
-    protected int timeToDoQuest;     // TODO : en ms, si il rest 10% du temps mettre le bouton pour voir la quete en rouge, Si le temps est fini declancher un evenement de colere des dieux, soit perdre un questProgress, soit perdre des ressource ou relic
+    protected int timeToDoQuest;
 
     protected GameMenuGodChoice.GodsNames god;
 
@@ -19,7 +18,7 @@ public class GameMenuGodQuest extends GameMenu {
 
     // CONSTRUCTOR //////////////////////////////////////////
 
-    public GameMenuGodQuest(String _name, TheGame _game) {  // TODO name = nom du dieu
+    public GameMenuGodQuest(String _name, TheGame _game) {
         super(_name, _game);
 
         questProgress = INIT_VALUE_QUESTPROGRESS;
@@ -137,7 +136,7 @@ public class GameMenuGodQuest extends GameMenu {
     public void InputUpdate(GameInput _lastGameInput) {
         super.InputUpdate(_lastGameInput);
 
-        if(questProgress == buttonArray.size()) {
+        if((questProgress == buttonArray.size()) && (buttonArray.size() > 1)) { // >1 pour eviter que la win soit declanche avant que le dieu soit choisit
             game.AddEventArray((GameMenu)(new GameMenuEvent("winEvent",game)),game.GetIndexEventArray());
         }
     }

@@ -26,6 +26,7 @@ public class TheGame {
 	protected String theGameFilePathe;
 	
 	protected boolean isGateClosed;		// TODO : mettre a true si la porte est dans la game
+	protected long lastTimeGateOpen;
 	protected boolean isInquisitionActive;
 
 	// STATIC VARIABLE /////////////////////////////////////////////////////////
@@ -37,6 +38,7 @@ public class TheGame {
 	public static final int FILE_POSITION_MENU_TYPE = 0;
 	public static final int TIME_BITWEEN_EVENT = 6000;		// 1 minute
 	public static final int TIME_OFFSET_TO_ACTIVATE_EVENT = 1000;	// time to let the player see the town
+	public static final int TIME_GATE_STAY_OPEN = 60000;
 
 	public static final int FILE_POSITION_INIT_GOLD = 1;
 	public static final int FILE_POSITION_INIT_CULTIST = 2;
@@ -49,6 +51,7 @@ public class TheGame {
 	public static final int FILE_POSITION_EVENT_THRESHOLD_SUSPICION = 9;
 	public static final int FILE_POSITION_EVENT_THRESHOLD_RELIC = 10;
 
+
 	// CONSTRUCTEUR /////////////////////////////////////////////////////////////
 	public TheGame() {
 		isGameOn = true;
@@ -57,6 +60,7 @@ public class TheGame {
 		eventArray = new ArrayList<>();		// la remplir ici ou quand appuie sur nouvelle partie
 		indexEventArray = 0;
 		isGateClosed = false;
+		lastTimeGateOpen = 0;
 		isInquisitionActive = false;
 		lastTimeUpdate = System.currentTimeMillis();
 		lastTimeEvent = lastTimeUpdate;
@@ -140,7 +144,7 @@ public class TheGame {
 
 			lastTimeUpdate = System.currentTimeMillis();
 
-			if(i==250) { // a supprimer
+			if(i==50) { // a supprimer
 				isGameOn = false;
 			}
 
@@ -152,9 +156,11 @@ public class TheGame {
             SimulateInput(i, 18, 101, 21, 0, 0);
             SimulateInput(i, 22, 101, 21, 0, 0);
             SimulateInput(i, 26, 101, 201, 0, 0);
-            SimulateInput(i, 30, 101, 251, 0, 0);
-            SimulateInput(i, 34, 101, 201, 0, 0);
-            SimulateInput(i, 38, 101, 251, 0, 0);
+            SimulateInput(i, 30, 99, 101, 0, 0);
+            // SimulateInput(i, 34, 101, 201, 0, 0);
+            // SimulateInput(i, 38, 101, 251, 0, 0);
+
+
             // SimulateInput(i, 26, 101, 301, 0, 0);
             // if(i==29){
             //     lastGameInput.tempNewInput(InputType.SLIDE, (int)10, (int)100, (int)20, (int)150);
@@ -181,6 +187,7 @@ public class TheGame {
 		}
 		
 		if(i == (fi+2)) {
+			System.out.println("INPUT : " + i + " " + x + " " + y);
 			lastGameInput.tempNewInput(InputType.UNPRESS, x, y, fx, fy);
 		}
 	}
@@ -211,6 +218,8 @@ public class TheGame {
 	}
 
 	public void OutputUpdate() { // TODO : peut etre ajouter une verif si quelque chose a bouge pour ne pas refresh pour r, peut etre chiant pour faire des anim
+		System.out.println("////////////////////////////////////////////////////////////////////////////////////////");
+
 		for(GameMenu building : buildingArray){
 		    building.OutputUpdate();
 		}
@@ -390,6 +399,16 @@ public class TheGame {
 		return worshipedGod;
 	}
 
+	public boolean GetIsGateOpened() {
+		boolean isGateClosed = false;
+
+		if((lastTimeGateOpen + TIME_GATE_STAY_OPEN) > System.currentTimeMillis()) {
+			isGateClosed = true;
+		}
+
+		return isGateClosed;
+	}
+
 	public void SetMenuIsActive(String _name, boolean _isActive) {
 		for(GameMenu menu : menuArray) {
 			if(menu.GetName().equals(_name)) {
@@ -463,5 +482,9 @@ public class TheGame {
 		else {
 			indexEventArray = 0;
 		}
+	}
+
+	public void SetLastTimeGateOpen(long _lastTimeGateOpen) {
+		lastTimeGateOpen = _lastTimeGateOpen;
 	}
 }

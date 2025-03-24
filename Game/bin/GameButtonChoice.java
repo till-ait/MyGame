@@ -123,51 +123,51 @@ public class GameButtonChoice extends GameButton {
         }
     }
     
-    @Override
-    public void OutputUpdate(int _positionX, int _positionY){
+    // @Override
+    // public void OutputUpdate(int _positionX, int _positionY){
         
-        super.OutputUpdate(_positionX, _positionY);
+    //     super.OutputUpdate(_positionX, _positionY);
     
-        if(goldCost != 0) {
-            System.out.println("gold cost : " + goldCost);
-        }
+    //     if(goldCost != 0) {
+    //         System.out.println("gold cost : " + goldCost);
+    //     }
     
-        if(goldReward != 0) {
-            System.out.println("gold reward : " + goldReward);
-        }
+    //     if(goldReward != 0) {
+    //         System.out.println("gold reward : " + goldReward);
+    //     }
         
-        if(cultistCost != 0) {
-            System.out.println("cultist cost : " + cultistCost);
-        }
+    //     if(cultistCost != 0) {
+    //         System.out.println("cultist cost : " + cultistCost);
+    //     }
     
-        if(cultistReward != 0) {
-            System.out.println("cultist reward : " + cultistReward);
-        }
+    //     if(cultistReward != 0) {
+    //         System.out.println("cultist reward : " + cultistReward);
+    //     }
         
-        if(knowlegeCost != 0) {
-            System.out.println("knowlege cost : " + knowlegeCost);
-        }
+    //     if(knowlegeCost != 0) {
+    //         System.out.println("knowlege cost : " + knowlegeCost);
+    //     }
     
-        if(knowlegeReward != 0) {
-            System.out.println("knowlege reward : " + knowlegeReward);
-        }
+    //     if(knowlegeReward != 0) {
+    //         System.out.println("knowlege reward : " + knowlegeReward);
+    //     }
         
-        if(suspicionCost != 0) {
-            System.out.println("sus cost : " + suspicionCost);
-        }
+    //     if(suspicionCost != 0) {
+    //         System.out.println("sus cost : " + suspicionCost);
+    //     }
     
-        if(suspicionReward != 0) {
-            System.out.println("sus reward : " + suspicionReward);
-        }
+    //     if(suspicionReward != 0) {
+    //         System.out.println("sus reward : " + suspicionReward);
+    //     }
         
-        if(relicCost != 0) {
-            System.out.println("relic cost : " + relicCost);
-        }
+    //     if(relicCost != 0) {
+    //         System.out.println("relic cost : " + relicCost);
+    //     }
     
-        if(relicReward != 0) {
-            System.out.println("relic reward : " + relicReward);
-        }
-    }
+    //     if(relicReward != 0) {
+    //         System.out.println("relic reward : " + relicReward);
+    //     }
+    // }
     
     
     //  GETTER AND SETTER //////////////////////////////////////////////////////    

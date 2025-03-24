@@ -20,17 +20,12 @@ public class GameMenuTown extends GameMenu {
     
     @Override
     public void InputUpdate(GameInput _lastGameInput) {
-		// TODO : quand override de town ajouter les slides
-		
-
 		if(isActive) {
     		if(_lastGameInput.GetInputType() == InputType.SLIDE) {
     		    SetPositionY((int)(_lastGameInput.GetFinishPositionY()-_lastGameInput.GetStartPositionY()));
     		}
 			super.InputUpdate(_lastGameInput);
 		}
-		
-		// TODO : le bp ne feront que activer le menu de meme indice dans le building Array
 	}
 	
 	// TODO : Override Output, il faut afficher les button correspondant au batiments present dans buildingArray de the game

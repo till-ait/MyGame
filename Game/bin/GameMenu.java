@@ -173,11 +173,8 @@ public class GameMenu {
 
 	public void InputUpdate(GameInput _lastGameInput) {
 
-		// TODO : quand override de town ajouter les slides
-
 		if(isActive) {
 			for(GameButton button : buttonArray) {
-				//button.ActivateMethode();
 				button.InputUpdate(_lastGameInput);
 			}
 		}

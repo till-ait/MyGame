@@ -7,7 +7,7 @@ public class GameMenuBuilding extends GameMenu {
 	protected boolean isLoaded;
 	protected BuildingState buildingState;
 	protected int infiltrationLevel;
-	protected boolean isDoorBlocked;    // TODO : a la creation parcourir les bat et voir si la porte y es et est ce qu'elle est blocante, ou alors mieu a chaque fois que c'est mis a actif
+	protected boolean isDoorBlocked;
 	protected long lastTimeUsed;    // heure a la darniere utilisation, comparaison si la nouvelle heure est plus grande en plus time reload
 	protected ArrayList<Integer> infiltationLevelRequireArray;
 	protected int timeToReload;
@@ -27,8 +27,7 @@ public class GameMenuBuilding extends GameMenu {
 
 	// CONSTRUCTOR /////////////////////////////////////////////////////////////
 
-	public GameMenuBuilding(String _name, TheGame _game) { // TODO : faire la composition aleatoir de la ville
-// 		super(_name, _game); // Bas nn du coup faut le remplir de game
+	public GameMenuBuilding(String _name, TheGame _game) {
         super();
         name = _name;
 		game = _game;
@@ -44,9 +43,6 @@ public class GameMenuBuilding extends GameMenu {
 		
 		// TODO : SetBackgroudFromFile(_name);
 		// TODO : SetSoundFromFile(_name);
-		
-		// TODO : Pas oublier de mettre un bouton croix, pour quitter le menu, ou on slide pour l'enlever ?
-		// TODO : peut etre l'appuie sur l'un des bouton permet de retrouner au menu town si ca marche		
 	}
 
 	// OVERRIDE ////////////////////////////////////////////////////////////////
@@ -115,7 +111,7 @@ public class GameMenuBuilding extends GameMenu {
 	@Override
 	public void InputUpdate(GameInput _lastGameInput) {
 		if(isActive) {
-		    if(System.currentTimeMillis() > (lastTimeUsed + timeToReload)) {    // TODO : peut etre mettre un timer ou autre, fin quelque chose pour informer le joueur que c'est en court d'utilisation
+		    if(System.currentTimeMillis() > (lastTimeUsed + timeToReload)) {
 		        isLoaded = true;
 		    }
 		    else {
@@ -154,7 +150,7 @@ public class GameMenuBuilding extends GameMenu {
     }
     
     @Override
-    public void SetIsActive(boolean _isActive){ // TODO : Ne pas mettre les boutton a actif quand en rechargement, mais bien les print (normalement si print et innactif met une image differente)
+    public void SetIsActive(boolean _isActive){
         int i=0;
 		isActive = _isActive;
 

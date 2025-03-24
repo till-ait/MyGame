@@ -65,10 +65,7 @@ public class GameButton {
 
 
 
-		InitFromFile();     // TODO : recuperation des donnC)es depuis le fichier associer,
-		// peut etre faire un seul fichier pour tous les bouton similaire,
-		// genre bp bat, bp town et tous puisqu'ils sont similaire
-		// pour eviter d'avoir plusieur fois les meme donner
+		InitFromFile();
 
 		// TODO : recuperation des images a partir du name.
 
@@ -77,7 +74,7 @@ public class GameButton {
 
 	public void InitFromFile() {
 		ArrayList<String> datas = new ArrayList<>();
-		FileReading dataFile = new FileReading(name+"Data.txt");  // TODO : remplacer par name + ".txt"
+		FileReading dataFile = new FileReading(name+"Data.txt");
 		dataFile.ReadDataFromFile(datas, FILE_FIRST_LINE);
 
 		SetLengthX(Integer.parseInt(datas.get(FILE_POSITION_X)));
@@ -164,21 +161,21 @@ public class GameButton {
 		}
 	}
 	
-	public void OutputUpdate(int _positionX, int _positionY) {  // TODO : pourquoi j'ai fait cette fonction ??? l'autre marche tres bien
+	// public void OutputUpdate(int _positionX, int _positionY) {  // TODO : pourquoi j'ai fait cette fonction ??? l'autre marche tres bien
 
-		// TODO : si la position X et/ou Y du bouton est or de l'ecran ne pas l'afficher
+	// 	// TODO : si la position X et/ou Y du bouton est or de l'ecran ne pas l'afficher
 
-		if(isActive && isPrint && isPressed) {
-			System.out.println("Bouton " + name + " est afficher actif et pressed");    // TODO : a remplacer par l'affichage de l'image
-		}
-		if(isActive && isPrint && !isPressed) {
-			System.out.println("Bouton " + name + " est afficher actif et unpressed, position : " + _positionX + " " + (_positionX + lengthX) +
-			                   " " + _positionY + " " + (_positionY + lengthY));
-		}
-		if(!isActive && isPrint) {
-			System.out.println("Bouton " + name + " est afficher unactif");
-		}
-	}
+	// 	if(isActive && isPrint && isPressed) {
+	// 		System.out.println("Bouton " + name + " est afficher actif et pressed");    // TODO : a remplacer par l'affichage de l'image
+	// 	}
+	// 	if(isActive && isPrint && !isPressed) {
+	// 		System.out.println("Bouton " + name + " est afficher actif et unpressed, position : " + _positionX + " " + (_positionX + lengthX) +
+	// 		                   " " + _positionY + " " + (_positionY + lengthY));
+	// 	}
+	// 	if(!isActive && isPrint) {
+	// 		System.out.println("Bouton " + name + " est afficher unactif");
+	// 	}
+	// }
 
 	// GETTER AND SETTER ///////////////////////////////////////////////////////
 
@@ -243,8 +240,8 @@ public class GameButton {
 	}
 
 	public void SetIsActive(boolean _isActive) {
-		isActive = _isActive;   // TODO : doit etre mis actif si pas blocque par porte ou recharge si nn juste print, en fait que pour les bouton de bat, donc a faire dans l'heritage
-		SetIsPrint(_isActive);  // TODO : si le batiment n'est pas infiltrer il faut pas afficher certain bouton
+		isActive = _isActive;
+		SetIsPrint(_isActive);
 		SetPositionX(initialPositionX);
 		SetPositionY(initialPositionY);
 	}

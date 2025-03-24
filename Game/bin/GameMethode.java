@@ -1,13 +1,14 @@
 import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 public class GameMethode {
     
 	public static void Activate(String _methodeName, TheGame _game, GameMenu _menu, GameButton _button) {
 		switch(_methodeName) {
-		case "test1":
-			test1();
-			break;
-		case "principaleBt0":	// New game // TODO : passer par le menu god choice et pas directement town
+		case "principaleBt0":
 		case "winBt0":
 		case "winEventBt0":
 		case "loseBt0":
@@ -53,20 +54,19 @@ public class GameMethode {
 			// GoPauseMenu(_game);
 			GoMenu("pause", _game);
 			break;
-		case "ressourcesBt1":	// gods quest
-			// TODO : active le menu gods quest
+		case "ressourcesBt1":
 			GoMenuWithRessources("godsQuest", _game);
 			break;
 		case "pauseBt1":		// setting, TODO : attention peut etre faire deux menu stting parceque la on ne revien pas au menu principale mais au precedent
 			// TODO : active le menu setting
 			break;
-		case "pauseBt2":		// abandon, TODO : mettre les fin de partie des events la aussi
+		case "pauseBt2":
 		case "gateEventBt2":
 		case "prisonEventBt2":
 			GoMenu("lose", _game);
 			break;
 		case "godsChoiceBt0":
-			godsChoiceBt(_game, GameMenuGodChoice.GodsNames.Ifrak);		// TODO : set le dieux choisit et lance la game
+			godsChoiceBt(_game, GameMenuGodChoice.GodsNames.Ifrak);
 			break;
 		case "godsChoiceBt1":
 			godsChoiceBt(_game, GameMenuGodChoice.GodsNames.Yikouch);
@@ -84,7 +84,7 @@ public class GameMethode {
 			// TODO : ajout du dieux aleatoir ??? est ce qu'il ne serai pas infinie, genre tu peux ne pas t'arreter un peut comme balatrot
 			break;
 		case "townBt0":			// open Bat 0 in building array
-		    TownBt(_game, 0);	// TODO : si la gate est ferme alors on peut pas ouvrir le batiment
+		    TownBt(_game, 0);
 		    break;
 		case "townBt1":			// open Bat 1 in building array
 		    TownBt(_game, 1);
@@ -99,13 +99,13 @@ public class GameMethode {
 		    TownBt(_game, 4);
 		    break;
 		case "townBt5":			// open Bat 5 in building array
-		    TownBt(_game, 5);
+			TownBt(_game, 5);	// TODO : faire en sorte qu'il y es un message qui apparai si on peut pas l'ouvrire
 		    break;
 		case "townBt6":			// open Bat 6 in building array
-		    TownBt(_game, 6);
+			TownBt(_game, 6);
 		    break;
 		case "townBt7":			// open Bat 7 in building array
-		    TownBt(_game, 7);
+			TownBt(_game, 7);
 		    break;
 		case "pauseBt0":		// go back town, il y a aussi tout les autres bouton qui permettent de revenir a la ville
 		case "housesBt0":
@@ -125,7 +125,7 @@ public class GameMethode {
 		case "docksBt0":
 		case "castleBt0":
 		case "godsQuestBt0":
-		    GoBackTown(_game);
+		    GoMenuWithRessources("town",_game);
 		    break;
 		case "housesBt1":		// houses choice 1, il y a aussi tous les autre choix de bouton qui implique juste un echange de ressources
 		case "housesBt2":		// houses choice 2
@@ -230,7 +230,7 @@ public class GameMethode {
 		case "gateBt2":
 		case "gateBt5":
 		case "gateBt8":
-			BtOpenGate(_game, _menu, _button);	// TODO : ouvre la porte et ajoute l'event correspondant a la porte ouverte dans 3 events
+			BtOpenGate(_game, _menu, _button);
 			break;
 		case "roadBt1":
 			BtAleatoryRessource(_game, _menu, _button);
@@ -241,27 +241,12 @@ public class GameMethode {
 		}
 	}
 
-	public static void test1() {
-		System.out.println("activate test 1");
-	}
-
-	public static void NewRun(TheGame _game) {	// TODO : activer le choix de dieux puis lancement game, ca activera quel dieux est adore
+	public static void NewRun(TheGame _game) {
 	    initBuildings(_game);
 		_game.SetLastTimeEvent(System.currentTimeMillis());
 		_game.SetAllMenuIsActive(false);
-		// _game.SetMenuIsActive("town", true);
-		// _game.SetMenuIsActive("ressources", true);
 		GoMenu("godsChoice", _game);
 	}
-
-	// public static void GoSettingMenu(TheGame _game) {
-	// 	_game.SetAllMenuIsActive(false);
-	// 	_game.SetMenuIsActive("setting", true);
-	// }
-
-	// public static void PrincipaleBt2(TheGame _game) {
-	// 	System.out.println("Affiche les credits");
-	// }
 
 	public static void SettingBt0(TheGame _game) {
 		System.out.println("sound off");
@@ -289,39 +274,12 @@ public class GameMethode {
 		System.out.println("reset progression");
 	}
 
-	// public static void GoToTutorial(TheGame _game) {
-	// 	_game.SetAllMenuIsActive(false);
-	// 	_game.SetMenuIsActive("tuto", true);
-	// }
-
-	// public static void GoMainMenu(TheGame _game) {
-	// 	_game.SetAllMenuIsActive(false);
-	// 	_game.SetMenuIsActive("principale", true);
-	// }
-
-	// public static void GoPauseMenu(TheGame _game) {
-	// 	_game.SetAllMenuIsActive(false);
-	// 	_game.SetMenuIsActive("pause", true);
-	// }
-	
-	// public static void GoLoseMenu(TheGame _game) {
-	// 	_game.SetAllMenuIsActive(false);
-	// 	_game.SetMenuIsActive("lose", true);
-	// }
-
 	public static void TownBt(TheGame _game, int i) {
-		// TODO : add if(GetMenu("Gate") != null) alors verifier que le bat est pas derrieur la gate
-		_game.SetAllMenuIsActive(false);
-		_game.SetMenuIsActive("ressources", true);
-		_game.SetBuildingMenuIsActive(i, true);
-	}
-	
-	public static void GoBackTown(TheGame _game) {
-	    _game.SetAllMenuIsActive(false);
-		_game.SetMenuIsActive("town", true);
-		_game.SetMenuIsActive("ressources", true);
-
-        // _game.GetBuilding(0).SetInfiltrationLevel((int) 1);	// TODO : passer par _menu, plus simple
+		if((_game.GetBuilding("gate")==null) || (_game.GetIsGateOpened()) || (i<5)){ // si la gate n'est pas en ville ou qu'elle est ouverte alors on peut ouvrir le bate, ou que c'est un bat avant la porte
+			_game.SetAllMenuIsActive(false);
+			_game.SetMenuIsActive("ressources", true);
+			_game.SetBuildingMenuIsActive(i, true);
+		}
 	}
 
 	public static void GoMenu(String _menuName, TheGame _game) {
@@ -416,7 +374,7 @@ public class GameMethode {
 
 	public static void godsChoiceBt(TheGame _game, GameMenuGodChoice.GodsNames _god) {
 		_game.SetWorshipedGod(_god);
-		GoBackTown(_game);
+		GoMenuWithRessources("town",_game);
 	}
 
 	public static void BtAleatoryRessource(TheGame _game, GameMenu _menu, GameButton _button) {
@@ -472,21 +430,59 @@ public class GameMethode {
 		GameButtonChoice choiceButton = (GameButtonChoice) _button;
 		
 		if(isRessourcesEnouth(_game, choiceButton)) {
-			addEvent(_game, "gateClosedEvent", _game.GetIndexEventArray()+1); // TODO : peut etre faire un event custom par facon d'ouvrire la porte
+			// addEvent(_game, "gateClosedEvent", _game.GetIndexEventArray()+1); // TODO : peut etre faire un event custom par facon d'ouvrire la porte
 			BtChoice(_game, _menu, _button);
+			_game.SetLastTimeGateOpen(System.currentTimeMillis());
 		}
 	}
 
-	public static void addEvent(TheGame _game, String _name, int _i) {
-		// TODO : cree l'evenement et le met dans l'array de game, i est l'offset d'event avant celui ci
-	}
+	// public static void addEvent(TheGame _game, String _name, int _i) {
+	// 	// TODO : cree l'evenement et le met dans l'array de game, i est l'offset d'event avant celui ci
+	// }
 
 	// PRIVATE /////////////////////////////////////////////////////////////////
 	
 	private static void initBuildings(TheGame _game){
 	    _game.ResetBuildingArray();
-	    _game.AddBuilding("houses");
 	    
+		List<String> ressourcesBuildings = Arrays.asList("houses", "factory", "library", "market", "temple", "theatre");
+		List<String> interactionBuildings = Arrays.asList("alchemist", "catacombs", "constructionSite", "rivalCult");
+		List<String> exchangeBuildings = Arrays.asList("road", "docks");
+		List<String> militaryBuildings = Arrays.asList("gate", "prison", "inquisition");
+		ArrayList<String> shuffledBuildings = new ArrayList<>();
+
+		Collections.shuffle(ressourcesBuildings);
+		Collections.shuffle(interactionBuildings);
+
+		shuffledBuildings.add(ressourcesBuildings.get(0));
+		shuffledBuildings.add(ressourcesBuildings.get(1));
+		shuffledBuildings.add(ressourcesBuildings.get(2));
+		shuffledBuildings.add(ressourcesBuildings.get(3));	// TODO : a enlever si on ajoute le caslte, car on avait dit 3 bat de ressource et j'en ai ajouter un la en attendant le castle
+		shuffledBuildings.add(interactionBuildings.get(0));
+		shuffledBuildings.add(interactionBuildings.get(1));
+		
+		Collections.shuffle(exchangeBuildings);
+		Collections.shuffle(militaryBuildings);
+		Collections.shuffle(shuffledBuildings);
+
+		System.out.println("Batiment ajouter a la ville : " + exchangeBuildings.get(0));
+	    _game.AddBuilding(exchangeBuildings.get(0));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(0));
+	    _game.AddBuilding(shuffledBuildings.get(0));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(1));
+	    _game.AddBuilding(shuffledBuildings.get(1));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(2));
+	    _game.AddBuilding(shuffledBuildings.get(2));
+		System.out.println("Batiment ajouter a la ville : " + militaryBuildings.get(0));
+	    _game.AddBuilding(militaryBuildings.get(0));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(3));
+	    _game.AddBuilding(shuffledBuildings.get(3));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(4));
+	    _game.AddBuilding(shuffledBuildings.get(4));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(5));
+	    _game.AddBuilding(shuffledBuildings.get(5));	// TODO : mettre le castle a la place
+
+
 	    // TODO : faire toute la partie init aleatoir a chaque partie
 		// TODO : il faut aussi modifier les image associer au bt de town en fonction des batiments
 	}

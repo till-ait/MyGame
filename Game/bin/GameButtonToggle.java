@@ -32,8 +32,6 @@ public class GameButtonToggle extends GameButton {
     
     // OVERRIDE ////////////////////////////////////////////////////////////////
     
-    // TODO :: Override les fonction input et output update 
-    
     @Override
     public void ManageUnPressInput(GameInput _lastGameInput) {
 		if((_lastGameInput.GetStartPositionX()>=positionX) &&

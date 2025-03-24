@@ -97,4 +97,14 @@ si de rapport different on met des bande sur le cotC) et on recentre
 
     peut etre mettre le text dans les fichier des menu
     // TODO : faire que la denier quest mette le win event
+
+
+    A faire au 24/03/2025
+    - verif de la port, V
+    - compo aleatoir V
+    - definir x et y et faire ne sorte que ca s'adapte a l'ecrant
+    - mettre en place un message qui s'affiche quand une action est refusé, genre si t'as assez de ressources ou si la porte est ferme
+    - faire la sauvegarde
+    - faire la partie graphique
+    - peut etre le chateau n'est pas necessaire et just ajouter un batiment, et mettre le chateau en fond pour le style
 */

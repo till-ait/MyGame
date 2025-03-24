@@ -23,8 +23,7 @@ public class GameMenuEvent extends GameMenu {
 
 	// CONSTRUCTOR /////////////////////////////////////////////////////////////
 
-	public GameMenuEvent(String _name, TheGame _game) { // TODO : faire la composition aleatoir de la ville
-// 		super(_name, _game); // Bas nn du coup faut le remplir de game
+	public GameMenuEvent(String _name, TheGame _game) { 
         super();
         name = _name;
 		game = _game;
