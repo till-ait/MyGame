@@ -1,0 +1,13 @@
+principale, setting, pause, town, godsChoice, godsQuest, win, lose, tuto, credit, ressources
+plagEvent, fireEvent, newMembersEvent, visionsEvent, helpPoorsEvent, godsWrathEvent, godsBlessEvent, rumorsEvent
+regular
+regular
+regular
+town
+godsChoice
+godsQuest
+regular
+regular
+regular
+regular
+ressources, 3, 1, 0, 0, 0, 5, 25, 25, 25, 25
