@@ -31,6 +31,7 @@ public class GameMenuEvent extends GameMenu {
 		buttonArray = new ArrayList<>();
 		
 		InitFromeFile();
+        InitImage();
 		
 		// TODO : SetBackgroudFromFile(_name);
 		// TODO : SetSoundFromFile(_name);
@@ -48,7 +49,7 @@ public class GameMenuEvent extends GameMenu {
         
         int i=0;
         ArrayList<String> datas = new ArrayList<>();
-		FileReading dataFile = new FileReading(name + ".txt");
+		FileReading dataFile = new FileReading(game.GetContext(), name + ".txt");
 		
 		dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA);
 

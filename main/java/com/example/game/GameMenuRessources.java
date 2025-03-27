@@ -1,4 +1,10 @@
 package com.example.game;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+
 import java.util.Random;
 
 public class GameMenuRessources extends GameMenu {
@@ -58,12 +64,46 @@ public class GameMenuRessources extends GameMenu {
     
     
     // OVERRIDE ////////////////////////////////////////////////////////////////
-    
+
+    @Override
+    public void InitImage() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) game.GetContext().getSystemService(game.GetContext().WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+
+
+        image = new ImageView(game.GetContext());
+        String imageName = "ressources";/*name.toLowerCase();*/ // Nom de l’image sans extension et mettre en minuscul
+        int imageResource = game.GetContext().getResources().getIdentifier(imageName, "drawable", game.GetContext().getPackageName());
+        if (imageResource != 0) {
+            image.setImageResource(imageResource);
+        } else {
+            Log.e("ImageError", "L'image '" + imageName + "' n'existe pas !");
+        }
+        image.setAdjustViewBounds(true);
+
+        imageParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+        );
+
+
+        image.setScaleType(ImageView.ScaleType.FIT_START);
+
+        imageParams.leftMargin = 0; // Décalage à droite
+        imageParams.rightMargin = 0;
+        imageParams.topMargin = 0; // Décalage vers le bas
+        imageParams.height = displayMetrics.heightPixels;
+        imageParams.width = displayMetrics.widthPixels;
+
+        image.setLayoutParams(imageParams);
+    }
+
     @Override
     public void OutputUpdate(){
         super.OutputUpdate();
         if(isActive){
-            System.out.println("RESSOURCES : gold : "+ gold+" / culti : "+cultist+" / know : "+knowlege+" / sus : "+suspicion+" / relic : "+relic+" / a place : "+aRitualPlace);
+            //System.out.println("RESSOURCES : gold : "+ gold+" / culti : "+cultist+" / know : "+knowlege+" / sus : "+suspicion+" / relic : "+relic+" / a place : "+aRitualPlace);
         }
     }
 

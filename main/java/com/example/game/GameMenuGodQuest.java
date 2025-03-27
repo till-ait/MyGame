@@ -30,7 +30,7 @@ public class GameMenuGodQuest extends GameMenu {
         int i=nbButton,godIndex=0;
         ArrayList<String> datas = new ArrayList<>();
         String[] splitQuestData;
-        FileReading dataFile = new FileReading("dataGodsQuest.txt");
+        FileReading dataFile = new FileReading(game.GetContext(), "dataGodsQuest.txt");
         dataFile.ReadDataFromFile(datas);
 
         godIndex = getGodPosition();

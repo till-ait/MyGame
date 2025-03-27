@@ -22,7 +22,9 @@ public class GameMenuTown extends GameMenu {
     public void InputUpdate(GameInput _lastGameInput) {
 		if(isActive) {
     		if(_lastGameInput.GetInputType() == InputType.SLIDE) {
-    		    SetPositionY((int)(_lastGameInput.GetFinishPositionY()-_lastGameInput.GetStartPositionY()));
+    		    // SetPositionY((int)(_lastGameInput.GetFinishPositionY()-_lastGameInput.GetStartPositionY()));
+                SetPositionY((positionY + _lastGameInput.GetFinishPositionY()-_lastGameInput.GetStartPositionY()));
+                System.out.println("New position : " + positionY + " deplacement de : " + (_lastGameInput.GetFinishPositionY()-_lastGameInput.GetStartPositionY()));
     		}
 			super.InputUpdate(_lastGameInput);
 		}
@@ -32,9 +34,17 @@ public class GameMenuTown extends GameMenu {
 	
     @Override
     public void SetIsActive(boolean _isActive) {
-        positionX = initialPositionX;
-        positionY = initialPositionY;
-        
+        //positionX = initialPositionX;
+        //positionY = initialPositionY;
+
+        if(_isActive) {
+            int i = 0;
+            for (GameButton building : buttonArray) {
+                building.SetImage(game.GetBuilding(i).GetName());
+                i++;
+            }
+        }
+
         super.SetIsActive(_isActive);
     }
 }

@@ -1,6 +1,21 @@
 package com.example.game;
 import java.util.ArrayList;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
+
+import android.view.Display;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.FrameLayout;
+import android.util.Log;
+
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class GameMenu {
 
 	// CLASS VARIABLE //////////////////////////////////////////////////////////
@@ -27,6 +42,10 @@ public class GameMenu {
 
 	protected MainActivity game;
 	protected long lastTimeActivated;
+
+	protected ImageView image;
+
+	protected FrameLayout.LayoutParams imageParams;
 
 	// STATIC VARIABLE /////////////////////////////////////////////////////////
 	
@@ -77,6 +96,7 @@ public class GameMenu {
 		lastTimeActivated = System.currentTimeMillis();
 
 		InitFromeFile();
+		InitImage();
 	}
 
 	public void InitFromeFile() {
@@ -84,7 +104,7 @@ public class GameMenu {
 		int i=0;
 		ArrayList<String> datasFirstLine = new ArrayList<>();
 		ArrayList<String> datas = new ArrayList<>();
-		FileReading dataFile = new FileReading(name + ".txt");
+		FileReading dataFile = new FileReading(game.GetContext(), name + ".txt");
 		
 		dataFile.ReadDataFromFile(datasFirstLine, FILE_LINE_MENU_DATA);
 
@@ -136,6 +156,41 @@ public class GameMenu {
 		
 		// TODO : SetBackgroudFromFile(_name);
 		// TODO : SetSoundFromFile(_name);
+
+
+	}
+
+	public void InitImage() {
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		WindowManager windowManager = (WindowManager) game.GetContext().getSystemService(game.GetContext().WINDOW_SERVICE);
+		windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+
+
+		image = new ImageView(game.GetContext());
+		String imageName = "menu";/*name.toLowerCase();*/ // Nom de l’image sans extension et mettre en minuscul
+		int imageResource = game.GetContext().getResources().getIdentifier(imageName, "drawable", game.GetContext().getPackageName());
+		if (imageResource != 0) {
+			image.setImageResource(imageResource);
+		} else {
+			Log.e("ImageError", "L'image '" + imageName + "' n'existe pas !");
+		}
+		image.setAdjustViewBounds(true);
+
+		imageParams = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.MATCH_PARENT,
+				FrameLayout.LayoutParams.MATCH_PARENT
+		);
+
+
+		image.setScaleType(ImageView.ScaleType.FIT_XY);
+
+		imageParams.leftMargin = 0; // Décalage à droite
+		imageParams.rightMargin = 0;
+		imageParams.topMargin = 0; // Décalage vers le bas
+		imageParams.height = displayMetrics.heightPixels;
+		imageParams.width = displayMetrics.widthPixels;
+
+		image.setLayoutParams(imageParams);
 	}
 	
 	protected void CreatRegularButton(int _lengthX, int _lengthY, int i) {
@@ -195,7 +250,8 @@ public class GameMenu {
 	    int buttonPositionY = (int) (positionY + margeY);
 	    
 		if(isActive) {
-			System.out.println(name + " menu afficher, " + positionY);
+			// System.out.println(name + " menu afficher, " + positionY);
+			game.GetFrameLayout().addView(image);
 			
 			for(GameButton button : buttonArray) {
 			    if(button.GetIsPrint()) {

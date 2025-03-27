@@ -1,4 +1,13 @@
 package com.example.game;
+import android.graphics.Typeface;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.content.res.AssetManager;
+
 import java.util.ArrayList;
 
 public class GameButton {
@@ -27,6 +36,12 @@ public class GameButton {
 	protected int lengthY;
 	protected int positionInArray;
 
+	protected ImageView image;
+	protected TextView textBt;
+
+	protected FrameLayout.LayoutParams imageParams;
+	protected FrameLayout.LayoutParams textParams;
+
 	// STATIC VARIABLES ////////////////////////////////////////////////////////
 	
 	public static final int FILE_FIRST_LINE = 0;
@@ -53,6 +68,8 @@ public class GameButton {
 		SetLengthY(_lengthY);
 
 		InitPositionFromMenu();
+		InitImage();
+		InitText();
 	}
 
 	public GameButton(String _name, MainActivity _game, GameMenu _menu) {
@@ -67,6 +84,7 @@ public class GameButton {
 
 
 		InitFromFile();
+		InitImage();
 
 		// TODO : recuperation des images a partir du name.
 
@@ -75,7 +93,7 @@ public class GameButton {
 
 	public void InitFromFile() {
 		ArrayList<String> datas = new ArrayList<>();
-		FileReading dataFile = new FileReading(name+"Data.txt");
+		FileReading dataFile = new FileReading(game.GetContext(), name+"Data.txt");
 		dataFile.ReadDataFromFile(datas, FILE_FIRST_LINE);
 
 		SetLengthX(Integer.parseInt(datas.get(FILE_POSITION_X)));
@@ -90,12 +108,68 @@ public class GameButton {
 		int offsetX = menu.GetMargeX();
 		int offsetY = menu.GetMargeY();
 
+		/*for(i=0; i<positionInArray; i++) {
+			offsetX = (int) (offsetX + buttonArray.get(i).GetLengthX() + menu.GetButtonMargeX());
+		}*/
+
 		for(i=0; i<positionInArray; i++) {
 			offsetY = (int) (offsetY + buttonArray.get(i).GetLengthY() + menu.GetButtonMargeY());
 		}
 
 		initialPositionX = offsetX;
 		initialPositionY = offsetY;
+
+		positionX = initialPositionX;
+		positionY = initialPositionY;
+	}
+
+	public void InitImage() {
+		image = new ImageView(game.GetContext());
+		String imageName = "menu_bt";/*name.toLowerCase();*/ // Nom de l’image sans extension et mettre en minuscul
+		int imageResource = game.GetContext().getResources().getIdentifier(imageName, "drawable", game.GetContext().getPackageName());
+		if (imageResource != 0) {
+			image.setImageResource(imageResource);
+		} else {
+			Log.e("ImageError", "L'image '" + imageName + "' n'existe pas !");
+		}
+		image.setAdjustViewBounds(true);
+
+		imageParams = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.WRAP_CONTENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT
+		);
+
+
+		//image.setScaleType(ImageView.ScaleType.FIT_XY);
+
+		imageParams.leftMargin = positionX; // Décalage à droite
+		imageParams.rightMargin = positionX;
+		imageParams.topMargin = positionY; // Décalage vers le bas
+		imageParams.bottomMargin = -1000;
+
+		image.setLayoutParams(imageParams);
+	}
+
+	public void InitText() {
+		textBt = new TextView(game.GetContext());
+		Typeface typeface = Typeface.createFromAsset(game.GetContext().getAssets(), "fonts/goth1.ttf");
+		typeface = Typeface.create(typeface, Typeface.BOLD);
+
+
+		textBt.setText(name);	// TODO : faire que ca recuper le text dans un fichier text
+		textBt.setTypeface(typeface);
+		textBt.setTextSize(35);
+
+		textParams = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.WRAP_CONTENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT
+		);
+		// TODO : enlever ces magic number et mettre des vraie marge pour les texte a l'interieur
+		textParams.leftMargin = positionX + 250; // Décalage à droite
+		textParams.rightMargin = positionX;
+		textParams.topMargin = positionY + 40; // Décalage vers le bas
+
+		textBt.setLayoutParams(textParams);
 	}
 
 	// UPDATE //////////////////////////////////////////////////////////////////
@@ -150,15 +224,32 @@ public class GameButton {
 
 		// TODO : si la position X et/ou Y du bouton est or de l'ecran ne pas l'afficher
 
+		if((positionX != initialPositionX) || (positionY!= initialPositionY)) {
+			imageParams.leftMargin = positionX; // Décalage à droite
+			imageParams.rightMargin = positionX;
+			imageParams.topMargin = positionY; // Décalage vers le bas
+			imageParams.bottomMargin = -1000;
+		}
+
 		if(isActive && isPrint && isPressed) {
 			System.out.println("Bouton " + name + " est afficher actif et pressed");    // TODO : a remplacer par l'affichage de l'image
+			game.GetFrameLayout().addView(image);
+			game.GetFrameLayout().addView(textBt);
+
+			lengthX = image.getWidth();
+			lengthY = image.getHeight();
 		}
 		if(isActive && isPrint && !isPressed) {
-			System.out.println("Bouton " + name + " est afficher actif et unpressed, position : " + positionX + " " + (positionX + lengthX) +
-			                   " " + positionY + " " + (positionY + lengthY));
+			// System.out.println("Bouton " + name + " est afficher actif et unpressed, position : " + positionX + " " + (positionX + lengthX) +" " + positionY + " " + (positionY + lengthY));
+			game.GetFrameLayout().addView(image);
+			game.GetFrameLayout().addView(textBt);
+
+			lengthX = image.getWidth();
+			lengthY = image.getHeight();
 		}
 		if(!isActive && isPrint) {
-			System.out.println("Bouton " + name + " est afficher unactif");
+			//System.out.println("Bouton " + name + " est afficher unactif");
+			game.GetFrameLayout().addView(image);
 		}
 	}
 	
@@ -289,5 +380,31 @@ public class GameButton {
 		if(_lengthY >= 0) {
 			lengthY = _lengthY;
 		}
+	}
+
+	public void SetImage(String _imageName) {
+		image = new ImageView(game.GetContext());
+		String imageName = _imageName.toLowerCase(); // Nom de l’image sans extension et mettre en minuscul
+		int imageResource = game.GetContext().getResources().getIdentifier(imageName, "drawable", game.GetContext().getPackageName());
+		if (imageResource != 0) {
+			image.setImageResource(imageResource);
+		} else {
+			Log.e("ImageError", "L'image '" + imageName + "' n'existe pas !");
+		}
+		image.setAdjustViewBounds(true);
+
+		imageParams = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.MATCH_PARENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT
+		);
+
+
+		//image.setScaleType(ImageView.ScaleType.FIT_XY);
+
+		imageParams.leftMargin = initialPositionX; // Décalage à droite
+		imageParams.rightMargin = initialPositionX;
+		imageParams.topMargin = initialPositionY; // Décalage vers le bas
+
+		image.setLayoutParams(imageParams);
 	}
 }

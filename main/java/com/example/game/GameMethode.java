@@ -276,7 +276,9 @@ public class GameMethode {
 	}
 
 	public static void TownBt(MainActivity _game, int i) {
-		if((_game.GetBuilding("gate")==null) || (_game.GetIsGateOpened()) || (i<5)){ // si la gate n'est pas en ville ou qu'elle est ouverte alors on peut ouvrir le bate, ou que c'est un bat avant la porte
+		System.out.println("BOUTON PRIS EN COMPTE !!!!!");
+
+		if((_game.GetBuilding("gate")==null) || (_game.GetIsGateOpened()) || (i>5)){ // si la gate n'est pas en ville ou qu'elle est ouverte alors on peut ouvrir le bate, ou que c'est un bat avant la porte
 			_game.SetAllMenuIsActive(false);
 			_game.SetMenuIsActive("ressources", true);
 			_game.SetBuildingMenuIsActive(i, true);
@@ -466,7 +468,7 @@ public class GameMethode {
 		Collections.shuffle(militaryBuildings);
 		Collections.shuffle(shuffledBuildings);
 
-		System.out.println("Batiment ajouter a la ville : " + exchangeBuildings.get(0));
+		/*System.out.println("Batiment ajouter a la ville : " + exchangeBuildings.get(0));
 	    _game.AddBuilding(exchangeBuildings.get(0));
 		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(0));
 	    _game.AddBuilding(shuffledBuildings.get(0));
@@ -481,8 +483,24 @@ public class GameMethode {
 		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(4));
 	    _game.AddBuilding(shuffledBuildings.get(4));
 		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(5));
-	    _game.AddBuilding(shuffledBuildings.get(5));	// TODO : mettre le castle a la place
+	    _game.AddBuilding(shuffledBuildings.get(5));*/
 
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(5));
+		_game.AddBuilding(shuffledBuildings.get(5));	// TODO : mettre le castle a la place
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(4));
+		_game.AddBuilding(shuffledBuildings.get(4));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(3));
+		_game.AddBuilding(shuffledBuildings.get(3));
+		System.out.println("Batiment ajouter a la ville : " + militaryBuildings.get(0));
+		_game.AddBuilding(militaryBuildings.get(0));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(2));
+		_game.AddBuilding(shuffledBuildings.get(2));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(1));
+		_game.AddBuilding(shuffledBuildings.get(1));
+		System.out.println("Batiment ajouter a la ville : " + shuffledBuildings.get(0));
+		_game.AddBuilding(shuffledBuildings.get(0));
+		System.out.println("Batiment ajouter a la ville : " + exchangeBuildings.get(0));
+		_game.AddBuilding(exchangeBuildings.get(0));
 
 	    // TODO : faire toute la partie init aleatoir a chaque partie
 		// TODO : il faut aussi modifier les image associer au bt de town en fonction des batiments

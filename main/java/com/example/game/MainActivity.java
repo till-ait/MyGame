@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.FrameLayout;
 import android.util.Log;
+import android.widget.TextView;
 //import test.java;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     // CLASS VARIABLE //////////////////////////////////////////////////////////
 
     protected boolean isGameOn;
+    protected boolean isGamePaused;
+    private Thread gameThread;
     protected ArrayList<GameMenu> menuArray;
     protected ArrayList<GameMenu> buildingArray;    // TODO : il faut que quand on fasse nouvelle partie ou jouer l'array soit remplie des batiments pour cette game
     protected ArrayList<GameMenu> eventArray;	// TODO : il faut remplire l'array aleatoirement d'event, une fois que l'array est entrement parcouru on la remelange et on l'a refait
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int FILE_EVENT_NAME_LINE = 1;
     public static final int FILE_MENU_PARAMETERS_FIRST_LINE = 2;
     public static final int FILE_POSITION_MENU_TYPE = 0;
-    public static final int TIME_BITWEEN_EVENT = 6000;		// 1 minute
+    public static final int TIME_BITWEEN_EVENT = 120000;		// 1 minute
     public static final int TIME_OFFSET_TO_ACTIVATE_EVENT = 1000;	// time to let the player see the town
     public static final int TIME_GATE_STAY_OPEN = 60000;
 
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Créer un FrameLayout (permet de superposer les vues et les placer librement)
         frameLayout = new FrameLayout(this);
-        frameLayout.setBackgroundColor(Color.WHITE);
+        frameLayout.setBackgroundColor(Color.BLACK);
         isGameOn = true;
         menuArray = new ArrayList<>();
         buildingArray = new ArrayList<>();
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         isInquisitionActive = false;
         lastTimeUpdate = System.currentTimeMillis();
         lastTimeEvent = lastTimeUpdate;
-        lastGameInput = new GameInput();
+        lastGameInput = new GameInput(this);
 
         screenLengthX = 1080;
         screenLengthY = 2400;
@@ -101,13 +105,31 @@ public class MainActivity extends AppCompatActivity {
         soundOn = true;     // TODO : faire une save de si le son est allumer
 
         InitMenuArrayFromeFile();
+        gameThread = new Thread(() -> {GameRun();});
+        gameThread.start();
+    }
 
-        GameRun();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isGamePaused = false;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isGamePaused = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isGameOn = false;
     }
 
     public void InitMenuArrayFromeFile() {  // TODO : peut etre ajouter ici le remplissage du town menu, et seul les menus de batiment concerne seront cree, nan peut etre le mettre a l'appuie de play
         int i=0;
-        FileReading dataFile = new FileReading("dataTheGame.txt");
+        FileReading dataFile = new FileReading(this,"dataTheGame.txt");
         ArrayList<String> datas = new ArrayList<>();
 
         dataFile.ReadDataFromFile(datas, FILE_FIRST_LINE);
@@ -166,24 +188,38 @@ public class MainActivity extends AppCompatActivity {
         long timeSinceLastUpdate = 0;
 
         while(isGameOn) {
-            InputUpdate();
-            OutputUpdate();
+            while(isGamePaused) {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(10);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    InputUpdate();
+                    OutputUpdate();
+                }
+            });
 
             lastTimeUpdate = System.currentTimeMillis();
 
-            if(i==50) { // a supprimer
+            /*if(i==10050) { // a supprimer
                 isGameOn = false;
-            }
+            }*/
 
-            SimulateInput(i, 2, 11, 221, 0, 0);
-            SimulateInput(i, 6, 101, 121, 0, 0);
-            SimulateInput(i, 10, 101, 121, 0, 0);
-            SimulateInput(i, 14, 101, 551, 0, 0);
+            ///SimulateInput(i, 2, 11, 221, 0, 0);
+            ///SimulateInput(i, 6, 101, 121, 0, 0);
+            ///SimulateInput(i, 10, 101, 121, 0, 0);
+            ///SimulateInput(i, 14, 101, 551, 0, 0);
             // SimulateInput(i, 18, 101, 451, 0, 0);
-            SimulateInput(i, 18, 101, 21, 0, 0);
-            SimulateInput(i, 22, 101, 21, 0, 0);
-            SimulateInput(i, 26, 101, 201, 0, 0);
-            SimulateInput(i, 30, 99, 101, 0, 0);
+            ///SimulateInput(i, 18, 101, 21, 0, 0);
+            ///SimulateInput(i, 22, 101, 21, 0, 0);
+            ///SimulateInput(i, 26, 101, 201, 0, 0);
+            ///SimulateInput(i, 30, 99, 101, 0, 0);
             // SimulateInput(i, 34, 101, 201, 0, 0);
             // SimulateInput(i, 38, 101, 251, 0, 0);
 
@@ -232,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
             lastGameInput.SetIsNewInput(false);
         }
 
-        if((GetMenu("town").GetIsActive()) && (timeToActiveAnEvent())) {	// TDO : akouter peut etre un delay pour pas avoir le cas ou le joueur est dans un bat et ca va a l'event sans passer par town
+        if((GetMenu("town").GetIsActive()) && (timeToActiveAnEvent())) {	// TODO : akouter peut etre un delay pour pas avoir le cas ou le joueur est dans un bat et ca va a l'event sans passer par town
             ((GameMenuRessources)GetMenu("ressources")).RessourceThresholdEvent();
             activateEvent();
         }
@@ -245,7 +281,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OutputUpdate() { // TODO : peut etre ajouter une verif si quelque chose a bouge pour ne pas refresh pour r, peut etre chiant pour faire des anim
-        System.out.println("////////////////////////////////////////////////////////////////////////////////////////");
+        // System.out.println("////////////////////////////////////////////////////////////////////////////////////////");
+
+        frameLayout.removeAllViews();
 
         for(GameMenu building : buildingArray){
             building.OutputUpdate();
@@ -437,6 +475,14 @@ public class MainActivity extends AppCompatActivity {
         return isGateClosed;
     }
 
+    public Context GetContext() {
+        return this;
+    }
+
+    public FrameLayout GetFrameLayout() {
+        return frameLayout;
+    }
+
     public void SetMenuIsActive(String _name, boolean _isActive) {
         for(GameMenu menu : menuArray) {
             if(menu.GetName().equals(_name)) {
@@ -550,7 +596,7 @@ public class MainActivity extends AppCompatActivity {
         frameLayout.addView(imageView);
 
         ImageView imageView2 = new ImageView(this);
-        String imageName = "mon_image"; // Nom de l’image sans extension
+        String imageName = "mon_image"; // Nom de l’image sans extension et mettre en minuscul
         int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
         if (imageResource != 0) {
             imageView2.setImageResource(imageResource);

@@ -41,6 +41,7 @@ public class GameMenuBuilding extends GameMenu {
 		timeToReload = 0;
 
 		InitFromeFile();
+		InitImage();
 		
 		// TODO : SetBackgroudFromFile(_name);
 		// TODO : SetSoundFromFile(_name);
@@ -52,7 +53,7 @@ public class GameMenuBuilding extends GameMenu {
     public void InitFromeFile() {	// TODO : maintenant que l'init se passe que a la fin dans GameMenu peut etre plus besoin de se faire chier a tous reecrire
 		int i=0;
 		ArrayList<String> datas = new ArrayList<>();
-		FileReading dataFile = new FileReading(name + ".txt");
+		FileReading dataFile = new FileReading(game.GetContext(), name + ".txt");
 		
 		dataFile.ReadDataFromFile(datas, FILE_LINE_MENU_DATA);
 
