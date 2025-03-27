@@ -1,0 +1,9 @@
+11, 6, 80, 80, 0, 0, 8, false, 0, 680
+regular, 100, 100
+regular, 100, 100
+regular, 100, 100
+regular, 100, 100
+regular, 100, 100
+regular, 100, 100
+regular, 100, 100
+regular, 100, 100
